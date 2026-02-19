@@ -1,0 +1,13 @@
+# Unused large assets
+assets/*.pdf
+assets/1. Pilar WhatsApp & Vendas.png
+assets/2. Pilar Posicionamento.png
+assets/3. Pilar Inteligência Financeira.png
+assets/4. Pilar Liderança & Time.png
+assets/5. Pilar Multiplicação de Renda.png
+assets/Gemini_Generated_Image_iavmybiavmybiavm.png
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

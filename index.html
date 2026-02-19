@@ -1,0 +1,885 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Augusto Polydoro — Mentoria APL</title>
+    <meta name="description" content="Mentoria de Gestão para Negócios da Beleza">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        background: '#050505',
+                        surface: '#121212',
+                        card: '#1A1A1A',
+                        border: '#2A2A2A',
+                        primary: '#FFFFFF',
+                        secondary: '#A3A3A3',
+                        accent: '#D4AF37',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Base Styles */
+        html, body { 
+            height: 100%; 
+            margin: 0;
+            padding: 0;
+            background-color: #050505; 
+            color: #E5E5E5; 
+            -webkit-font-smoothing: antialiased; 
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        
+        .text-balance { text-wrap: balance; }
+        
+        /* Parallax Background */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -10;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 50%, #000000 100%);
+            background-size: cover;
+        }
+
+        /* Desktop Parallax Effect */
+        @media (min-width: 1024px) {
+            .parallax-bg {
+                background-attachment: fixed;
+            }
+        }
+
+        /* Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-zoom {
+            opacity: 0;
+            transform: scale(0.8);
+            filter: blur(8px);
+            transition: all 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-zoom.active {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+        }
+
+        /* Text Reveal Effect */
+        .text-reveal-wrapper { overflow: hidden; display: inline-block; }
+        .text-reveal { transform: translateY(120%); display: block; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .text-reveal.active { transform: translateY(0); }
+
+        /* Delays */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+
+        /* Pillar Card Hover Effects */
+        .pillar-card:hover .pillar-img { filter: grayscale(0%); transform: scale(1.1); }
+        .pillar-card:hover .pillar-content { max-height: 200px; opacity: 1; }
+        .pillar-card:hover .pillar-cap { --tw-gradient-via: rgba(212, 175, 55, 0.5); }
+        .pillar-card:hover .pillar-number-bg { background-color: #D4AF37; color: black; border-color: #D4AF37; }
+        .pillar-card:hover .pillar-line { background-color: rgba(212, 175, 55, 0.5); }
+        .pillar-card:hover .pillar-title { color: #D4AF37; }
+        .pillar-card:hover .pillar-indicator { width: 100%; background-color: rgba(212, 175, 55, 0.3); }
+
+        /* AI Chat Styles */
+        .ai-content strong { color: #D4AF37; font-weight: 700; }
+        
+        /* Mobile Menu Transitions */
+        #mobile-menu { transition: opacity 0.3s, transform 0.3s; }
+        #mobile-menu.hidden-menu { opacity: 0; transform: translateY(-20px); pointer-events: none; }
+        #mobile-menu.visible-menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+        /* Stage Card Active States handled in JS */
+        .stage-card.active-stage { background-color: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
+    </style>
+</head>
+<body>
+    
+    <!-- Preloader -->
+    <div id="preloader" class="fixed flex flex-col md:p-12 transition-transform duration-[1.5s] ease-[cubic-bezier(0.19,1,0.22,1)] bg-black z-[100] p-6 inset-0 justify-between">
+        <div class="flex text-[10px] text-zinc-400 uppercase tracking-widest font-mono w-full justify-between">
+            <span>Mentoria APL</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <h1 class="md:text-9xl text-6xl font-bold text-white tracking-tighter font-display">POLYDORO</h1>
+            <div class="mt-8 w-32 h-[1px] bg-white/20 overflow-hidden">
+                <div id="loader-bar" class="h-full bg-white transition-all duration-300 ease-out" style="width: 0%"></div>
+            </div>
+            <div id="loader-text" class="mt-2 font-mono text-[10px] text-zinc-400">0%</div>
+        </div>
+        <div class="flex justify-between w-full text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
+            <span>Gestão</span>
+            <span>Escala</span>
+        </div>
+    </div>
+
+    <!-- Parallax Background Element -->
+    <div class="parallax-bg"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed z-50 transition-all duration-500 w-full pt-4 px-4 md:pt-6 md:px-6 top-0 left-0 -translate-y-full bg-transparent">
+
+        <div class="flex max-w-7xl mx-auto items-center justify-between">
+            
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-1 bg-surface/80 backdrop-blur-md border border-white/10 rounded-full px-2 py-1.5 shadow-2xl">
+                <a href="#problem" class="px-5 py-2 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-all">O Cenário</a>
+                <a href="#method" class="px-5 py-2 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-all">Método APL</a>
+                <a href="#mentor" class="px-5 py-2 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-all">O Mentor</a>
+                <a href="#ai-consultant" class="px-5 py-2 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-all">
+                    <span class="text-accent">IA</span>PL
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/5522988244601?text=Ol%C3%A1!%20Gostaria%20de%20aplicar%20para%20a%20Mentoria%20APL." target="_blank" rel="noreferrer" class="hidden md:flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider bg-white text-black px-5 py-2.5 rounded-full hover:bg-neutral-200 transition-colors">
+                    Aplicar Agora
+                </a>
+                <button id="menu-btn" class="md:hidden text-white mix-blend-difference z-50 relative focus:outline-none p-4 -mr-2 cursor-pointer" aria-label="Toggle menu">
+                    <iconify-icon id="menu-icon" icon="solar:hamburger-menu-linear" width="28" height="28"></iconify-icon>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden-menu fixed inset-0 w-full h-[100dvh] bg-background/95 backdrop-blur-xl z-40 flex flex-col items-center justify-start pt-28 pb-32 gap-6 md:hidden overflow-y-auto overscroll-contain">
+            <a href="#problem" class="mobile-link text-2xl font-display font-medium text-white hover:text-accent transition-colors py-2">O Cenário</a>
+            <a href="#method" class="mobile-link text-2xl font-display font-medium text-white hover:text-accent transition-colors py-2">Método APL</a>
+            <a href="#mentor" class="mobile-link text-2xl font-display font-medium text-white hover:text-accent transition-colors py-2">O Mentor</a>
+            <a href="#ai-consultant" class="mobile-link text-2xl font-display font-medium text-white hover:text-accent transition-colors py-2"><span class="text-accent">IA</span>PL</a>
+            <a href="https://wa.me/5522988244601?text=Ol%C3%A1!%20Gostaria%20de%20aplicar%20para%20a%20Mentoria%20APL." target="_blank" rel="noreferrer" class="text-xs font-bold uppercase tracking-wider bg-white text-black px-8 py-4 rounded-full mt-4 hover:scale-105 transition-transform shadow-lg">
+                Aplicar Agora
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+             <!-- Hero Section -->
+        <header 
+            class="relative min-h-screen flex flex-col justify-end pb-12 md:pb-20 px-4 md:px-6 overflow-hidden border-b border-border bg-fixed bg-center bg-cover bg-no-repeat"
+            style="background-image: url('./assets/hero.bg.jpg');"
+        >
+            <!-- Overlay escuro para melhor contraste -->
+            
+            
+            <div class="max-w-[1600px] w-full mx-auto relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+                    <div class="lg:col-span-8">
+                        <h1 class="font-display font-bold text-5xl sm:text-7xl lg:text-[10vw] leading-[0.9] tracking-tighter text-white">
+                            MUITA TÉCNICA.<br>
+                            <span class="text-gray-400">POUCO LUCRO.</span>
+                        </h1>
+                    </div>
+                    
+                    <div class="lg:col-span-4 lg:pb-4 flex flex-col items-start lg:items-end">
+                        <!-- Bloco MÉTODO APL destacado -->
+                        <div class="relative group overflow-hidden bg-white/5 backdrop-blur-md border border-white/20 px-8 py-6 md:px-14 md:py-8 rounded-full mb-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] transition-all duration-500 hover:bg-white/10 hover:border-white/30 hover:scale-[1.02]">
+                            <!-- Shine Effect -->
+                            <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                            
+                            <span class="relative z-10 font-display font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-[0.25em] uppercase drop-shadow-md text-center block pl-[0.25em]">
+                                MÉTODO APL
+                            </span>
+                        </div>
+                        
+                        <p class="text-gray-200 text-sm sm:text-base md:text-xl leading-relaxed text-balance max-w-lg lg:text-right ml-auto font-medium drop-shadow-md">
+                            Para o profissional que cansou de ter a agenda cheia e a conta vazia. Transforme sua habilidade técnica em uma empresa que gera riqueza real.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- Problem Section -->
+        <section id="problem" class="py-16 md:py-32 px-4 md:px-6 bg-surface border-b border-border">
+            <div class="max-w-7xl mx-auto">
+        <!-- Logo APL exibida a partir desta seção -->
+        <div class="mb-8">
+            <img src="./assets/Logo.png"
+                 alt="APL Logo"
+                 class="w-16 h-16 rounded-full object-cover border border-accent/60 shadow-[0_0_25px_rgba(0,0,0,0.6)]">
+        </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-24 items-start">
+                    <div class="sticky top-24">
+                        <div class="reveal">
+                            <h2 class="font-display font-semibold text-3xl md:text-5xl tracking-tighter mb-6 leading-[1.1] text-white">
+                                12 horas em pé.<br />
+                                <span class="text-secondary">Conta no vermelho.</span>
+                            </h2>
+                            <p class="text-secondary text-base md:text-lg leading-relaxed mb-8 font-light">
+                                Você investe milhares de reais em cursos de especialização. Sua técnica é impecável. Mas você continua vendo concorrentes com metade do seu talento ganhando o dobro do que você ganha.
+                            </p>
+                            <div class="space-y-4 border-l-2 border-white/20 pl-6">
+                                <p class="text-white text-base md:text-lg font-medium">
+                                    "O problema não é a sua mão. O problema é que você construiu um emprego, não uma empresa."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full">
+<div class="reveal delay-200 ml-auto">
+                            <div class="bg-card border border-white/5 rounded-3xl p-4 md:p-8 relative overflow-hidden shadow-2xl">
+                                <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-yellow-500/5 to-red-900/10 pointer-events-none"></div>
+                                <div class="relative z-10 text-center mb-8">
+                                    <h3 class="font-display font-bold text-xl md:text-2xl text-white mb-1">CICLO DA FALÊNCIA</h3>
+                                    <p class="text-xs uppercase tracking-widest text-secondary">Setor de Beleza Brasil</p>
+                                </div>
+                                <div id="stages-container" class="space-y-3 relative z-10">
+                                    <!-- Generated by JS -->
+                                </div>
+                                <div id="feedback-area" class="mt-8 text-center relative z-10 min-h-[60px] flex items-center justify-center flex-col scroll-mt-32">
+                                    <span id="feedback-placeholder" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest text-secondary hover:bg-white/10 transition-colors animate-pulse">
+                                        <iconify-icon icon="solar:cursor-bold" width="14"></iconify-icon>
+                                        Clique no seu estágio atual
+                                    </span>
+                                    <div id="feedback-content" class="hidden transition-all duration-700 transform max-w-2xl mx-auto animate-fade-in-up">
+                                        <p id="feedback-text" class="text-white font-bold text-lg md:text-3xl mb-4 leading-snug shadow-black drop-shadow-lg"></p>
+                                        <div class="flex items-center justify-center gap-2 text-accent text-xs uppercase tracking-widest mt-2">
+                                            <iconify-icon icon="solar:refresh-circle-linear" class="animate-spin"></iconify-icon>
+                                            Redirecionando para o método em 5s...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Method Section -->
+        <section id="method" class="pt-16 pb-32 md:py-24 px-4 md:px-6 border-b border-border bg-background relative overflow-hidden">
+            <div class="max-w-[1600px] mx-auto relative z-10">
+                <div class="mb-12 md:mb-16 flex flex-col items-center text-center">
+                    <div class="reveal">
+                        <span class="text-lg md:text-xl font-bold font-mono text-secondary uppercase tracking-widest mb-4 block">A Solução</span>
+                    </div>
+                    <div class="reveal-zoom">
+                        <h2 class="font-display font-semibold text-4xl md:text-6xl tracking-tighter mb-4 text-white">O Método APL</h2>
+                    </div>
+                    <div class="reveal delay-100">
+                        <p class="text-secondary text-base max-w-md mx-auto">5 pilares fundamentais. Uma estrutura inabalável.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-3 md:gap-4 w-full">
+                    <!-- Card 1 -->
+                    <div class="reveal delay-100 w-full h-full">
+                        <div class="pillar-card group relative rounded-xl overflow-hidden h-[450px] md:h-[600px] cursor-pointer shadow-lg hover:shadow-accent/20 transition-all duration-700 border border-white/5 hover:border-accent/40 w-full flex flex-col justify-end">
+                            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" class="pillar-img absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] md:grayscale" alt="Vendas">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-90 transition-opacity duration-300"></div>
+                            <div class="pillar-cap absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-500"></div>
+                            <div class="relative p-4 md:p-5 flex flex-col items-center text-center z-10 w-full mb-4">
+                                <div class="mb-6 transform transition-transform duration-500">
+                                    <div class="pillar-number-bg w-12 h-12 bg-surface/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                                        <span class="font-display font-bold text-xl">1</span>
+                                    </div>
+                                    <div class="pillar-line w-[1px] h-4 bg-white/10 mx-auto mt-2 transition-colors"></div>
+                                </div>
+                                <h3 class="pillar-title font-display font-bold text-lg md:text-xl text-white mb-4 leading-tight transition-colors w-full whitespace-pre-line">Vendas &<br>Conversão</h3>
+                                <div class="pillar-content overflow-hidden max-h-0 transition-all duration-700 ease-in-out opacity-0">
+                                    <p class="text-xs md:text-sm text-gray-300 leading-relaxed text-balance pb-2">Scripts validados para converter curiosos em contratos de alto valor sem parecer vendedor chato.</p>
+                                </div>
+                                <div class="pillar-indicator mt-2 w-6 h-[2px] bg-white/20 transition-all duration-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="reveal delay-200 w-full h-full">
+                        <div class="pillar-card group relative rounded-xl overflow-hidden h-[450px] md:h-[600px] cursor-pointer shadow-lg hover:shadow-accent/20 transition-all duration-700 border border-white/5 hover:border-accent/40 w-full flex flex-col justify-end">
+                            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&q=80" class="pillar-img absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] md:grayscale" alt="Branding">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-90 transition-opacity duration-300"></div>
+                            <div class="pillar-cap absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-500"></div>
+                            <div class="relative p-4 md:p-5 flex flex-col items-center text-center z-10 w-full mb-4">
+                                <div class="mb-6 transform transition-transform duration-500">
+                                    <div class="pillar-number-bg w-12 h-12 bg-surface/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                                        <span class="font-display font-bold text-xl">2</span>
+                                    </div>
+                                    <div class="pillar-line w-[1px] h-4 bg-white/10 mx-auto mt-2 transition-colors"></div>
+                                </div>
+                                <h3 class="pillar-title font-display font-bold text-lg md:text-xl text-white mb-4 leading-tight transition-colors w-full whitespace-pre-line">Branding<br>Magnético</h3>
+                                <div class="pillar-content overflow-hidden max-h-0 transition-all duration-700 ease-in-out opacity-0">
+                                    <p class="text-xs md:text-sm text-gray-300 leading-relaxed text-balance pb-2">Posicionamento de autoridade para cobrar 3x mais que a concorrência e ter fila de espera.</p>
+                                </div>
+                                <div class="pillar-indicator mt-2 w-6 h-[2px] bg-white/20 transition-all duration-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="reveal delay-300 w-full h-full">
+                        <div class="pillar-card group relative rounded-xl overflow-hidden h-[450px] md:h-[600px] cursor-pointer shadow-lg hover:shadow-accent/20 transition-all duration-700 border border-white/5 hover:border-accent/40 w-full flex flex-col justify-end">
+                            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" class="pillar-img absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] md:grayscale" alt="Financeiro">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-90 transition-opacity duration-300"></div>
+                            <div class="pillar-cap absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-500"></div>
+                            <div class="relative p-4 md:p-5 flex flex-col items-center text-center z-10 w-full mb-4">
+                                <div class="mb-6 transform transition-transform duration-500">
+                                    <div class="pillar-number-bg w-12 h-12 bg-surface/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                                        <span class="font-display font-bold text-xl">3</span>
+                                    </div>
+                                    <div class="pillar-line w-[1px] h-4 bg-white/10 mx-auto mt-2 transition-colors"></div>
+                                </div>
+                                <h3 class="pillar-title font-display font-bold text-lg md:text-xl text-white mb-4 leading-tight transition-colors w-full whitespace-pre-line">Gestão<br>Financeira</h3>
+                                <div class="pillar-content overflow-hidden max-h-0 transition-all duration-700 ease-in-out opacity-0">
+                                    <p class="text-xs md:text-sm text-gray-300 leading-relaxed text-balance pb-2">Domine a precificação, fluxo de caixa e lucro. Pare de sangrar dinheiro na operação.</p>
+                                </div>
+                                <div class="pillar-indicator mt-2 w-6 h-[2px] bg-white/20 transition-all duration-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="reveal delay-400 w-full h-full">
+                        <div class="pillar-card group relative rounded-xl overflow-hidden h-[450px] md:h-[600px] cursor-pointer shadow-lg hover:shadow-accent/20 transition-all duration-700 border border-white/5 hover:border-accent/40 w-full flex flex-col justify-end">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" class="pillar-img absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] md:grayscale" alt="Liderança">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-90 transition-opacity duration-300"></div>
+                            <div class="pillar-cap absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-500"></div>
+                            <div class="relative p-4 md:p-5 flex flex-col items-center text-center z-10 w-full mb-4">
+                                <div class="mb-6 transform transition-transform duration-500">
+                                    <div class="pillar-number-bg w-12 h-12 bg-surface/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                                        <span class="font-display font-bold text-xl">4</span>
+                                    </div>
+                                    <div class="pillar-line w-[1px] h-4 bg-white/10 mx-auto mt-2 transition-colors"></div>
+                                </div>
+                                <h3 class="pillar-title font-display font-bold text-lg md:text-xl text-white mb-4 leading-tight transition-colors w-full whitespace-pre-line">Liderança<br>& Cultura</h3>
+                                <div class="pillar-content overflow-hidden max-h-0 transition-all duration-700 ease-in-out opacity-0">
+                                    <p class="text-xs md:text-sm text-gray-300 leading-relaxed text-balance pb-2">Monte um time engajado que veste a camisa e opera o negócio enquanto você foca na estratégia.</p>
+                                </div>
+                                <div class="pillar-indicator mt-2 w-6 h-[2px] bg-white/20 transition-all duration-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="reveal delay-500 w-full h-full">
+                        <div class="pillar-card group relative rounded-xl overflow-hidden h-[450px] md:h-[600px] cursor-pointer shadow-lg hover:shadow-accent/20 transition-all duration-700 border border-white/5 hover:border-accent/40 w-full flex flex-col justify-end">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" class="pillar-img absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] md:grayscale" alt="Escala">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-90 transition-opacity duration-300"></div>
+                            <div class="pillar-cap absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-500"></div>
+                            <div class="relative p-4 md:p-5 flex flex-col items-center text-center z-10 w-full mb-4">
+                                <div class="mb-6 transform transition-transform duration-500">
+                                    <div class="pillar-number-bg w-12 h-12 bg-surface/50 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                                        <span class="font-display font-bold text-xl">5</span>
+                                    </div>
+                                    <div class="pillar-line w-[1px] h-4 bg-white/10 mx-auto mt-2 transition-colors"></div>
+                                </div>
+                                <h3 class="pillar-title font-display font-bold text-lg md:text-xl text-white mb-4 leading-tight transition-colors w-full whitespace-pre-line">Escala &<br>Legado</h3>
+                                <div class="pillar-content overflow-hidden max-h-0 transition-all duration-700 ease-in-out opacity-0">
+                                    <p class="text-xs md:text-sm text-gray-300 leading-relaxed text-balance pb-2">Estratégias para abrir filiais, criar produtos e construir patrimônio real com seu negócio.</p>
+                                </div>
+                                <div class="pillar-indicator mt-2 w-6 h-[2px] bg-white/20 transition-all duration-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mentor Section -->
+        <section id="mentor" class="py-16 md:py-32 px-4 md:px-6 border-b border-border bg-surface">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-24 items-center">
+                    <div class="md:col-span-5">
+                        <div class="reveal">
+                            <div class="relative aspect-[3/4] rounded-sm overflow-hidden bg-card border border-white/10 shadow-2xl">
+                                <img id="mentor-img" src="./assets/mentor.jpg" class="w-full h-full object-cover transition-all duration-1000 grayscale md:hover:grayscale-0" alt="Augusto Polydoro">
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-7">
+                        <div class="reveal">
+                            <div class="mb-8 md:mb-12">
+                                <span class="text-[10px] font-mono uppercase tracking-widest text-white block mb-2">Quem é seu mentor</span>
+                                <h2 class="font-display font-bold text-4xl md:text-6xl tracking-tighter text-white mb-6">AUGUSTO POLYDORO</h2>
+                                <p class="text-secondary text-base md:text-lg font-light leading-relaxed mb-8">
+                                    Advisor Beauty, Diretor de Expansão e Founder da APL. Augusto não é apenas um teórico; ele vive o campo de batalha. Com uma abordagem única que une <span class="text-white italic">Negócios, Mentalidade e Fé</span>, ele já guiou centenas de profissionais a quebrarem o teto de faturamento.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 md:gap-8 border-t border-border pt-8">
+                            <div class="reveal delay-100">
+                                <span class="block font-display font-bold text-2xl md:text-3xl tracking-tighter mb-1 text-white">Founder</span>
+                                <span class="text-[10px] md:text-xs text-secondary font-mono uppercase tracking-wider">APL Mentoria</span>
+                            </div>
+                            <div class="reveal delay-200">
+                                <span class="block font-display font-bold text-2xl md:text-3xl tracking-tighter mb-1 text-white">Advisor</span>
+                                <span class="text-[10px] md:text-xs text-secondary font-mono uppercase tracking-wider">Business Beauty</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Consultant Section -->
+        <section id="ai-consultant" class="py-16 md:py-24 px-6 border-b border-border bg-surface relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>
+            <div class="max-w-4xl mx-auto relative z-10">
+                <div class="text-center mb-12">
+                    <div class="reveal">
+                        <h2 class="font-display font-semibold text-4xl md:text-6xl tracking-tighter mb-6 text-white">
+                            <span class="text-accent">IA</span>PL ✨
+                        </h2>
+                        <p class="text-secondary text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                            A inovação chegou à gestão da beleza. A <strong>IAPL</strong> é o resultado da fusão da nossa Inteligência Artificial com a metodologia proprietária APL. 
+                            <br/><br/>
+                            Treinada exaustivamente com o nosso <strong>banco de dados exclusivo e centenas de cases de sucesso</strong>, ela oferece uma amostra cirúrgica do raciocínio estratégico que aplicamos na mentoria.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="reveal delay-100">
+                    <div class="bg-card border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl">
+                        <div class="flex flex-col gap-4">
+                            <label for="user-challenge" class="text-sm font-medium text-white ml-1">Descreva o seu maior desafio atual:</label>
+                            <div class="relative">
+                                <textarea 
+                                    id="user-challenge" rows="3" 
+                                    class="w-full bg-surface border border-white/10 rounded-xl p-4 text-base md:text-lg text-white placeholder-zinc-600 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50 transition-all resize-none" 
+                                    placeholder="Ex: Minha agenda está cheia, mas não vejo a cor do dinheiro no final do mês..."></textarea>
+                                <div class="absolute bottom-3 right-3 text-xs text-zinc-500">Powered by APL Data</div>
+                            </div>
+                            
+                            <button id="ai-btn" class="w-full bg-white text-black font-bold py-4 rounded-xl text-sm hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 group shadow-lg">
+                                <span>Receber Diagnóstico Preliminar</span>
+                                <iconify-icon icon="solar:stars-minimalistic-bold" class="text-accent group-hover:scale-110 transition-transform"></iconify-icon>
+                            </button>
+                        </div>
+
+                        <div id="ai-response-container" class="hidden mt-8 pt-8 border-t border-white/5 animate-fade-in-up">
+                            <div class="flex gap-4 mb-6">
+                                <div class="w-10 h-10 rounded-full overflow-hidden shrink-0 border border-white/10 bg-accent flex items-center justify-center font-bold text-black">
+                                    AP
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="text-sm font-bold text-white">Augusto Polydoro (IA)</span>
+                                        <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded text-secondary">Advisor</span>
+                                    </div>
+                                    <div id="ai-text-content" class="text-sm text-secondary leading-relaxed ai-content"></div>
+                                </div>
+                            </div>
+
+                             <div class="border-l-2 border-accent pl-4 py-2 bg-accent/5 rounded-r-lg">
+                                <strong class="text-white block mb-2 text-sm">⚡ Apenas uma pergunta gratuita permitida.</strong>
+                                <p class="mb-4 text-xs text-secondary">O Método APL é denso e requer acompanhamento. Para ter acesso a estratégias ilimitadas e personalizadas, aplique para a mentoria.</p>
+                                <a href="https://wa.me/5522988244601?text=Ol%C3%A1!%20Gostaria%20de%20aplicar%20para%20a%20Mentoria%20APL." target="_blank" rel="noreferrer" class="inline-block bg-accent text-black text-[10px] font-bold px-4 py-2 rounded hover:bg-white transition-colors">
+                                    QUERO APLICAR AGORA
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Proof Section -->
+        <section class="py-16 md:py-24 px-6 border-b border-border bg-background">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-16">
+                    <div class="reveal">
+                        <h2 class="font-display font-semibold text-3xl tracking-tight text-white">Resultados Reais</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Proof 1 -->
+                    <div class="reveal delay-100 h-full">
+                        <article class="group bg-card p-8 rounded-2xl border border-white/5 hover:bg-surface transition-colors h-full flex flex-col">
+                            <div class="flex gap-1 mb-6 text-yellow-500">
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                            </div>
+                            <p class="text-gray-200 text-lg font-medium italic mb-6">"Eu tinha pavor de vender. Achava que era chato. Com o script da APL, hoje fecho pacotes high-ticket no automático."</p>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-xs font-bold text-white">M.S</div>
+                                <div><span class="block text-sm text-white font-bold">Mariana Silva</span><span class="text-xs text-secondary">Esteticista</span></div>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- Proof 2 -->
+                    <div class="reveal delay-200 h-full">
+                        <article class="group bg-card p-8 rounded-2xl border border-white/5 hover:bg-surface transition-colors h-full flex flex-col">
+                            <div class="flex gap-1 mb-6 text-yellow-500">
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                            </div>
+                            <p class="text-gray-200 text-lg font-medium italic mb-6">"Não sabia precificar. Trabalhava muito e sobrava pouco. Dobrei meu lucro líquido trabalhando 4h a menos por dia."</p>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-xs font-bold text-white">R.O</div>
+                                <div><span class="block text-sm text-white font-bold">Rafael Oliveira</span><span class="text-xs text-secondary">Cabeleireiro</span></div>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- Proof 3 -->
+                    <div class="reveal delay-300 h-full">
+                        <article class="group bg-card p-8 rounded-2xl border border-white/5 hover:bg-surface transition-colors h-full flex flex-col">
+                            <div class="flex gap-1 mb-6 text-yellow-500">
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                            </div>
+                            <p class="text-gray-200 text-lg font-medium italic mb-6">"Era escrava da minha agenda. Hoje meu time roda a operação e eu cuido da expansão da clínica. Liberdade."</p>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-xs font-bold text-white">C.M</div>
+                                <div><span class="block text-sm text-white font-bold">Camila Mendes</span><span class="text-xs text-secondary">Dona de Clínica</span></div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+            <!-- Offer / Quem quer crescer -->
+        <section 
+            id="offer" 
+            class="px-4 md:px-6 py-16 md:py-32 relative bg-background"
+        >
+            <div class="max-w-7xl mx-auto relative z-10">
+                <!-- Título -->
+                <div class="mb-12 md:mb-16 text-center">
+                    <h2 class="font-display font-semibold text-4xl sm:text-5xl md:text-7xl tracking-tighter leading-none text-white">
+                        SUA NOVA<br>
+                        REALIDADE.
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+                    <!-- Card Esquerdo -->
+                    <div class="h-full">
+                        <div class="bg-card/80 backdrop-blur-md p-6 md:p-12 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden group hover:border-white/20 transition-all h-full flex flex-col">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                            
+                         <h3 class="font-display font-bold text-xl md:text-2xl text-white mb-6 flex items-center gap-3">
+    <span class="inline-flex w-9 h-9 items-center justify-center rounded-full bg-white/5 border border-white/20 text-xs font-mono tracking-[0.25em] text-white">
+        VE
+    </span>
+    Visão Estratégica
+</h3>
+
+                            
+                            <div class="flex-grow flex items-center">
+                                <p class="text-gray-300 text-base md:text-lg font-light leading-relaxed text-balance">
+                                    Quem quer crescer na beleza precisa entender para onde está indo, como vai expandir, qual plano sustenta essa evolução e qual papel escolhe assumir diante do mercado. O futuro não acontece por acaso, ele é construído por quem se move com clareza e intenção!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Direito -->
+                    <div class="h-full">
+                        <div class="bg-card/80 backdrop-blur-md p-6 md:p-12 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden group hover:border-white/20 transition-all h-full flex flex-col">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                            
+                            <h3 class="font-display font-bold text-xl md:text-2xl text-white mb-6">
+                                Aplicação para Mentoria
+                            </h3>
+                            
+                            <ul class="space-y-4 mb-10 flex-grow">
+                                <li class="flex items-center gap-3 text-secondary text-sm md:text-base">
+                                    <span class="inline-flex w-6 h-6 items-center justify-center rounded-full bg-white/10 text-white text-[10px] font-bold">✓</span>
+                                    <span>Diagnóstico completo do negócio</span>
+                                </li>
+                                <li class="flex items-center gap-3 text-secondary text-sm md:text-base">
+                                    <span class="inline-flex w-6 h-6 items-center justify-center rounded-full bg-white/10 text-white text-[10px] font-bold">✓</span>
+                                    <span>Acesso ao Método APL</span>
+                                </li>
+                                <li class="flex items-center gap-3 text-secondary text-sm md:text-base">
+                                    <span class="inline-flex w-6 h-6 items-center justify-center rounded-full bg-white/10 text-white text-[10px] font-bold">✓</span>
+                                    <span>Networking com empresários</span>
+                                </li>
+                            </ul>
+
+                            <a 
+                                href="https://wa.me/5522988244601?text=Ol%C3%A1!%20Gostaria%20de%20aplicar%20para%20a%20Mentoria%20APL." 
+                                target="_blank" 
+                                rel="noreferrer" 
+                                class="w-full bg-white text-black font-bold py-5 rounded-xl text-sm md:text-base hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] mt-auto"
+                            >
+                                QUERO APLICAR AGORA
+                                <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+                            </a>
+                            <p class="text-center text-[10px] text-zinc-500 mt-4 uppercase tracking-wider">
+                                Processo seletivo via WhatsApp
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-border bg-background pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-16">
+                <div>
+                    <a href="#" class="font-display font-bold text-2xl tracking-tighter uppercase mb-2 block text-white">APL</a>
+                    <p class="text-secondary text-sm max-w-xs">Transformando profissionais da beleza em empresários de sucesso.</p>
+                </div>
+                <div class="flex gap-4 self-start md:self-auto">
+                    <a href="https://www.instagram.com/augustopolydoro?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" class="w-10 h-10 rounded-full bg-surface border border-border flex items-center justify-center hover:bg-white hover:text-black transition-all text-white"><iconify-icon icon="mdi:instagram" width="18" height="18"></iconify-icon></a>
+                    <a href="https://wa.me/5522988244601?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20sobre%20a%20mentoria." target="_blank" rel="noreferrer" class="w-10 h-10 rounded-full bg-surface border border-border flex items-center justify-center hover:bg-white hover:text-black transition-all text-white"><iconify-icon icon="mdi:whatsapp" width="18" height="18"></iconify-icon></a>
+                </div>
+            </div>
+            <div class="border-t border-border pt-8 flex justify-center items-center text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+                <p>© 2025 Augusto Polydoro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script type="module">
+        const stagesData = [
+            { id: 1, icon: "solar:lightbulb-bold", title: "1. Abertura sem preparo", desc: "17% não planejam, 59% planejam só 6 meses.", color: "text-yellow-500", bg: "bg-yellow-500" },
+            { id: 2, icon: "solar:user-hand-up-bold", title: "2. Operário vs. Proprietário", desc: "Dono só executa, não gerencia e não delega.", color: "text-orange-400", bg: "bg-orange-400" },
+            { id: 3, icon: "solar:wad-of-money-bold", title: "3. Falta de Capital de Giro", desc: "Fatura, mas não tem caixa, atrasa fornecedores.", color: "text-orange-500", bg: "bg-orange-500" },
+            { id: 4, icon: "solar:walking-round-bold", title: "4. Êxodo de Profissionais", desc: "Profissionais migram para autônomo, qualidade cai.", color: "text-red-400", bg: "bg-red-400" },
+            { id: 5, icon: "solar:users-group-rounded-bold", title: "5. Concorrência Acirrada", desc: "27 negócios abrem por hora, guerra de preços.", color: "text-red-500", bg: "bg-red-500" },
+            { id: 6, icon: "solar:graph-down-bold", title: "6. Custos Fixos vs. Receita", desc: "Aluguel e impostos sobem, receita cai.", color: "text-red-600", bg: "bg-red-600" },
+            { id: 7, icon: "solar:lock-password-bold", title: "7. FECHAMENTO", desc: "Dívidas, perda de credibilidade, saída do mercado.", color: "text-white", bg: "bg-red-700", isTerminal: true }
+        ];
+
+        const feedbackMessages = [
+            "Reconhecer a falta de preparo é o início da mudança. O Método APL constrói a base sólida que seu negócio precisa.",
+            "Sair do operacional é vital. Vamos implementar processos para você se tornar o empresário que sua empresa merece.",
+            "Caixa saudável é questão de método. Vamos estancar esse sangramento e trazer previsibilidade financeira.",
+            "Sua equipe deve ser seu maior ativo. Aprenda a liderar e reter talentos com cultura forte.",
+            "Destaque-se na multidão. Posicionamento único é a chave para vencer a guerra de preços.",
+            "Lucro é sanidade. Vamos reestruturar seus custos e precificação para ver a cor do dinheiro.",
+            "Ainda há esperança. Uma intervenção estratégica agressiva pode salvar seu legado agora."
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Preloader Logic ---
+            const preloader = document.getElementById('preloader');
+            const loaderBar = document.getElementById('loader-bar');
+            const loaderText = document.getElementById('loader-text');
+            const navbar = document.getElementById('navbar');
+            let width = 0;
+
+            const interval = setInterval(() => {
+                width += Math.floor(Math.random() * 5) + 2;
+                if (width > 100) width = 100;
+                
+                loaderBar.style.width = width + '%';
+                loaderText.innerText = width + '%';
+
+                if (width === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        preloader.classList.add('-translate-y-full', 'pointer-events-none');
+                        setTimeout(() => {
+                            navbar.classList.remove('-translate-y-full');
+                        }, 800);
+                    }, 500);
+                }
+            }, 30);
+
+            // --- Scroll Reveal Logic ---
+            const observerOptions = { rootMargin: "0px", threshold: 0.15 };
+            const revealObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal, .reveal-zoom, .text-reveal');
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // --- Image Reveal (Mentor) ---
+            const mentorImg = document.getElementById('mentor-img');
+            const imgObserver = new IntersectionObserver(([entry]) => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.remove('grayscale');
+                    imgObserver.disconnect();
+                }
+            }, { threshold: 0.4 });
+            if(mentorImg) imgObserver.observe(mentorImg);
+
+            // --- Mobile Menu ---
+            const menuBtn = document.getElementById('menu-btn');
+            const menuIcon = document.getElementById('menu-icon');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            let isMenuOpen = false;
+
+            function toggleMenu() {
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    mobileMenu.classList.remove('hidden-menu');
+                    mobileMenu.classList.add('visible-menu');
+                    menuIcon.setAttribute('icon', 'solar:close-circle-linear');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    mobileMenu.classList.remove('visible-menu');
+                    mobileMenu.classList.add('hidden-menu');
+                    menuIcon.setAttribute('icon', 'solar:hamburger-menu-linear');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+            // --- Problem Section (Stages) ---
+            const stagesContainer = document.getElementById('stages-container');
+            
+            stagesData.forEach((stage, index) => {
+                const div = document.createElement('div');
+                div.className = `stage-card cursor-pointer flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl transition-all duration-300 group bg-surface/50 border border-white/5 opacity-50 hover:opacity-80`;
+                
+                if (stage.isTerminal) {
+                    div.className += ' hover:bg-red-900/40 opacity-70';
+                }
+
+                div.innerHTML = `
+                    <div class="mt-1 w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors bg-opacity-10 ${stage.bg} ${stage.color}">
+                        <iconify-icon icon="${stage.icon}" width="16"></iconify-icon>
+                    </div>
+                    <div>
+                        <strong class="block text-sm font-bold mb-0.5 ${stage.isTerminal ? 'text-red-200' : 'text-white'}">${stage.title}</strong>
+                        <span class="text-[11px] ${stage.isTerminal ? 'text-red-300' : 'text-zinc-400'}">${stage.desc}</span>
+                    </div>
+                `;
+
+                div.addEventListener('click', () => handleStageSelect(index, div, stage.isTerminal));
+                stagesContainer.appendChild(div);
+            });
+
+            function handleStageSelect(index, element, isTerminal) {
+                document.querySelectorAll('.stage-card').forEach(card => {
+                    card.className = card.className.replace('active-stage ring-2 ring-white bg-white/10 opacity-100 ring-red-500 bg-red-900/60 border-red-500', '');
+                    card.classList.add('bg-surface/50', 'border-white/5', 'opacity-50');
+                    if (card.querySelector('strong').innerText.includes('FECHAMENTO')) {
+                         card.classList.add('bg-red-950/30', 'border-red-900/30');
+                    }
+                });
+
+                element.classList.remove('bg-surface/50', 'border-white/5', 'opacity-50', 'bg-red-950/30', 'border-red-900/30');
+                if (isTerminal) {
+                    element.classList.add('active-stage', 'bg-red-900/60', 'border', 'border-red-500', 'ring-2', 'ring-red-500', 'opacity-100');
+                } else {
+                    element.classList.add('active-stage', 'ring-2', 'ring-white', 'bg-white/10', 'opacity-100');
+                }
+                
+                document.querySelectorAll('.stage-card .rounded-full').forEach(iconBg => {
+                    iconBg.classList.remove('bg-opacity-100', 'text-black');
+                    iconBg.classList.add('bg-opacity-10');
+                });
+                const activeIcon = element.querySelector('.rounded-full');
+                activeIcon.classList.remove('bg-opacity-10');
+                activeIcon.classList.add('bg-opacity-100', 'text-black');
+
+                const placeholder = document.getElementById('feedback-placeholder');
+                const content = document.getElementById('feedback-content');
+                const text = document.getElementById('feedback-text');
+
+                placeholder.style.display = 'none';
+                content.classList.remove('hidden');
+                text.innerText = feedbackMessages[index];
+
+                document.getElementById('feedback-area').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                setTimeout(() => {
+                    document.getElementById('method').scrollIntoView({ behavior: 'smooth' });
+                }, 4000);
+            }
+
+            // --- AI Logic (Demo Mode) ---
+            const aiBtn = document.getElementById('ai-btn');
+            const aiInput = document.getElementById('user-challenge');
+            const aiContainer = document.getElementById('ai-response-container');
+            const aiText = document.getElementById('ai-text-content');
+            let hasAsked = false;
+
+            aiBtn.addEventListener('click', async () => {
+                const query = aiInput.value.trim();
+                if (!query || hasAsked) return;
+
+                aiBtn.disabled = true;
+                aiInput.disabled = true;
+                const originalBtnContent = aiBtn.innerHTML;
+                aiBtn.innerHTML = `<iconify-icon icon="svg-spinners:180-ring-with-bg" class="text-xl"></iconify-icon><span>Analisando com Método APL...</span>`;
+
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                const responseText = "<strong>Entendo sua situação.</strong><br><br>O cenário que você descreveu é clássico de quem foca apenas na técnica e esquece que um salão é uma empresa. Para sair dessa, precisamos mexer na sua <strong>Gestão Financeira</strong> imediatamente.<br><br>Pare de misturar contas pessoais com as da empresa e precifique seu serviço cobrindo todos os custos fixos, não apenas o produto.<br><br>Se você quer parar de sangrar dinheiro e ter lucro real, você precisa aplicar para a <strong>Mentoria APL</strong> agora.";
+
+                aiContainer.classList.remove('hidden');
+                aiText.innerHTML = responseText;
+                hasAsked = true;
+
+                aiBtn.innerHTML = `<span>Quero mais conselhos</span> <iconify-icon icon="solar:lock-keyhole-minimalistic-bold"></iconify-icon>`;
+                aiBtn.classList.add('bg-surface', 'border', 'border-white/10', 'text-white/50', 'cursor-not-allowed');
+                aiBtn.classList.remove('bg-white', 'text-black', 'hover:bg-neutral-200');
+            });
+        });
+    </script>
+</body>
+</html>

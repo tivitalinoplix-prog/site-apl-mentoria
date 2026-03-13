@@ -389,13 +389,13 @@
 
         /* Reveal Item Stagger */
         .reveal-item {
-            opacity: 0;
-            transform: translateY(32px);
-            transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
-        }
-        .reveal-item.revealed {
             opacity: 1;
             transform: translateY(0);
+            transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal-item.reveal-item--hidden {
+            opacity: 0;
+            transform: translateY(32px);
         }
     </style>
 </head>
@@ -586,7 +586,7 @@
             <div class="max-w-[1600px] mx-auto relative z-10">
                 <div class="mb-12 md:mb-16 flex flex-col items-center text-center">
                     <div class="reveal">
-                        <span class="font-tech text-accent text-[10px] font-bold tracking-[0.3em] uppercase block mb-6">_The_Framework</span>
+                        <span class="diag-label font-tech uppercase">_The_Framework</span>
                     </div>
                     <div class="reveal-zoom">
                         <h2 class="font-display font-black text-4xl md:text-7xl tracking-tighter mb-4 text-white uppercase">O MÉTODO NA VE<span class="text-accent italic">i</span>A</h2>
@@ -1125,19 +1125,62 @@
     <!-- Gargalo Stagger Reveal -->
     <script>
         (function() {
-            const revealItems = document.querySelectorAll('.reveal-item');
-            if (!revealItems.length) return;
+            function initStagger() {
+                const revealItems = document.querySelectorAll('.reveal-item');
+                if (!revealItems.length) return false;
 
-            const staggerObserver = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        obs.unobserve(entry.target);
+                // Hide via JS class (CSS fallback: items visible if JS fails)
+                revealItems.forEach((item, i) => {
+                    item.style.transitionDelay = `${i * 80}ms`;
+                    item.classList.add('reveal-item--hidden');
+                });
+
+                const staggerObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.remove('reveal-item--hidden');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    rootMargin: '0px 0px -40px 0px',
+                    threshold: [0, 0.1]
+                });
+
+                revealItems.forEach(item => staggerObserver.observe(item));
+
+                // Fallback: force reveal after 3s
+                setTimeout(() => {
+                    document.querySelectorAll('.reveal-item--hidden').forEach(el => {
+                        el.classList.remove('reveal-item--hidden');
+                    });
+                }, 3000);
+
+                return true;
+            }
+
+            // Cards are created by a type="module" script inside DOMContentLoaded
+            // which runs after this inline script. Wait for them.
+            const container = document.getElementById('stages-container');
+            if (container) {
+                const mo = new MutationObserver((mutations, obs) => {
+                    if (container.querySelectorAll('.reveal-item').length > 0) {
+                        obs.disconnect();
+                        requestAnimationFrame(() => initStagger());
                     }
                 });
-            }, { threshold: 0.15 });
+                mo.observe(container, { childList: true });
+            }
 
-            revealItems.forEach(item => staggerObserver.observe(item));
+            // Ultimate fallback
+            setTimeout(() => {
+                if (!document.querySelector('.reveal-item.reveal-item--hidden') && 
+                    document.querySelectorAll('.reveal-item').length > 0) {
+                    // Already visible or never hidden, do nothing
+                } else {
+                    initStagger();
+                }
+            }, 1500);
         })();
     </script>
 </body>

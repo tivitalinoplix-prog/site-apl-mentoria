@@ -244,6 +244,159 @@
         .hero-cta:hover .btn-arrow {
             transform: translateX(4px);
         }
+
+        /* === HERO SUBTITLE === */
+        .hero-subtitle {
+            font-size: clamp(15px, 1.6vw, 18px);
+            color: #888888;
+            max-width: 520px;
+            line-height: 1.7;
+            margin-top: 24px;
+            margin-bottom: 40px;
+        }
+        .hero-subtitle strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* === DIAGNÓSTICO SECTION === */
+        .diag-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #dc1e1e;
+            margin-bottom: 20px;
+        }
+        .diag-label::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: #dc1e1e;
+            vertical-align: middle;
+        }
+
+        .diag-title {
+            overflow: hidden;
+        }
+        .diag-title .dim {
+            color: rgba(255,255,255,0.35);
+        }
+
+        .diag-paragraph {
+            font-size: clamp(15px, 1.5vw, 17px);
+            color: #888888;
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        .diag-quote {
+            border-left: 3px solid #dc1e1e;
+            padding: 20px 24px;
+            background: rgba(220,30,30,0.04);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: clamp(15px, 1.5vw, 17px);
+            color: #cccccc;
+            line-height: 1.7;
+            margin: 0 0 48px 0;
+            max-width: 680px;
+        }
+
+        /* Gargalo Cards */
+        .gargalo-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 12px;
+            transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+        .gargalo-card:hover {
+            border-color: rgba(220,30,30,0.35);
+            background: rgba(220,30,30,0.04);
+            transform: translateX(6px);
+        }
+        .gargalo-card .gargalo-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            display: grid;
+            place-items: center;
+            filter: brightness(0.7);
+            transition: filter 0.3s ease;
+        }
+        .gargalo-card:hover .gargalo-icon {
+            filter: brightness(1);
+        }
+
+        /* Item 7 Terminal */
+        .gargalo-terminal {
+            border-color: rgba(220,30,30,0.3);
+            background: rgba(220,30,30,0.06);
+        }
+        .gargalo-terminal:hover {
+            transform: translateX(6px);
+            box-shadow: 0 0 20px rgba(220,30,30,0.12);
+        }
+        .gargalo-terminal .gargalo-title {
+            color: #dc1e1e;
+            letter-spacing: 2px;
+        }
+        .critico-badge {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #dc1e1e;
+            background: rgba(220,30,30,0.15);
+            border: 1px solid rgba(220,30,30,0.3);
+            border-radius: 4px;
+            padding: 2px 8px;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        /* Gargalo CTA Button */
+        .gargalo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 4px;
+            padding: 14px 28px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: 32px;
+        }
+        .gargalo-btn:hover {
+            border-color: #dc1e1e;
+            color: #dc1e1e;
+            background: rgba(220,30,30,0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Reveal Item Stagger */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal-item.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -335,8 +488,8 @@
                         </h1>
                     </div>
                     <div class="reveal delay-200">
-                        <p class="text-secondary text-lg md:text-2xl max-w-xl font-light leading-relaxed mb-12 border-l border-white/10 pl-8">
-                            Fusão estratégica entre <span class="text-white font-medium">Neurociência</span>, <span class="text-white font-medium">IA Generativa</span> e <span class="text-white font-medium">Ciência da Criatividade</span> para automatizar o DNA do seu negócio.
+                        <p class="hero-subtitle border-l border-white/10 pl-8">
+                            Fusão estratégica entre <strong>Neurociência</strong>, <strong>IA Generativa</strong> e <strong>Ciência da Criatividade</strong> para automatizar o DNA do seu negócio.
                         </p>
                     </div>
                     <div class="reveal delay-300 flex flex-wrap gap-4">
@@ -383,35 +536,33 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-start">
                     <div class="sticky top-24">
                         <div class="reveal">
-                            <span class="font-tech text-accent text-[10px] font-bold tracking-[0.3em] uppercase block mb-6">_Diagnóstico_Operacional</span>
-                            <h2 class="font-display font-black text-3xl md:text-6xl tracking-tighter mb-8 leading-[0.95] text-white uppercase">
+                            <span class="diag-label font-tech uppercase">_Diagnóstico_Operacional</span>
+                            <h2 class="diag-title font-display font-black text-3xl md:text-6xl tracking-tighter mb-8 leading-[0.95] text-white uppercase">
                                 Sua operação está<br>
-                                <span class="text-secondary italic font-light normal-case">Drenando seu crescimento?</span>
+                                <span class="dim italic font-light normal-case">Drenando seu crescimento?</span>
                             </h2>
-                            <p class="text-secondary text-base md:text-lg leading-relaxed mb-8 font-light max-w-lg">
+                            <p class="diag-paragraph font-light">
                                 Sua empresa investe tempo e dinheiro em operações repetitivas. Documentos são redigidos manualmente, processos geram gargalos e a equipe gasta horas em tarefas que poderiam ser automatizadas com IA.
                             </p>
-                            <div class="border-l-2 border-accent pl-6 py-2">
-                                <p class="text-white text-base md:text-lg font-medium italic">
-                                    "O problema não é a sua equipe. O problema é que seus processos não foram desenhados para escalar com inteligência."
-                                </p>
+                            <div class="diag-quote">
+                                "O problema não é a sua equipe. O problema é que seus processos não foram desenhados para escalar com inteligência."
                             </div>
                         </div>
                     </div>
                     
                     <div class="w-full">
-<div class="reveal delay-200 ml-auto">
-                            <div class="bg-card border border-white/5 rounded-3xl p-4 md:p-8 relative overflow-hidden shadow-2xl">
+                        <div class="reveal delay-200 ml-auto">
+                            <div class="bg-card border border-white/5 rounded-2xl p-4 md:p-8 relative overflow-hidden shadow-2xl">
                                 <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-yellow-500/5 to-red-900/10 pointer-events-none"></div>
                                 <div class="relative z-10 text-center mb-8">
                                     <h3 class="font-display font-bold text-xl md:text-2xl text-white mb-1">GARGALOS OPERACIONAIS</h3>
                                     <p class="text-xs uppercase tracking-widest text-secondary">Diagnóstico de Processos Corporativos</p>
                                 </div>
-                                <div id="stages-container" class="space-y-3 relative z-10">
+                                <div id="stages-container" class="relative z-10">
                                     <!-- Generated by JS -->
                                 </div>
                                 <div id="feedback-area" class="mt-8 text-center relative z-10 min-h-[60px] flex items-center justify-center flex-col scroll-mt-32">
-                                    <span id="feedback-placeholder" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest text-secondary hover:bg-white/10 transition-colors animate-pulse">
+                                    <span id="feedback-placeholder" class="gargalo-btn font-tech uppercase">
                                         <iconify-icon icon="solar:cursor-bold" width="14"></iconify-icon>
                                         Clique no seu gargalo atual
                                     </span>
@@ -844,19 +995,19 @@
             
             stagesData.forEach((stage, index) => {
                 const div = document.createElement('div');
-                div.className = `stage-card cursor-pointer flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl transition-all duration-300 group bg-surface/50 border border-white/5 opacity-50 hover:opacity-80`;
-                
-                if (stage.isTerminal) {
-                    div.className += ' hover:bg-red-900/40 opacity-70';
-                }
+                div.className = `stage-card gargalo-card reveal-item${stage.isTerminal ? ' gargalo-terminal' : ''}`;
+                div.style.transitionDelay = `${index * 80}ms`;
+
+                const terminalExtra = stage.isTerminal ? `<span class="critico-badge font-tech uppercase">CRÍTICO</span>` : '';
 
                 div.innerHTML = `
-                    <div class="mt-1 w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors bg-opacity-10 ${stage.bg} ${stage.color}">
-                        <iconify-icon icon="${stage.icon}" width="16"></iconify-icon>
+                    <div class="gargalo-icon ${stage.color}">
+                        <iconify-icon icon="${stage.icon}" width="18"></iconify-icon>
                     </div>
                     <div>
-                        <strong class="block text-sm font-bold mb-0.5 ${stage.isTerminal ? 'text-red-200' : 'text-white'}">${stage.title}</strong>
-                        <span class="text-[11px] ${stage.isTerminal ? 'text-red-300' : 'text-zinc-400'}">${stage.desc}</span>
+                        <strong class="gargalo-title block text-sm font-bold mb-0.5 ${stage.isTerminal ? '' : 'text-white'}">${stage.title}</strong>
+                        <span class="text-[11px] ${stage.isTerminal ? 'text-red-300/80' : 'text-zinc-400'}">${stage.desc}</span>
+                        ${terminalExtra}
                     </div>
                 `;
 
@@ -969,6 +1120,24 @@
 
             // Reset on load
             updateSplit();
+        })();
+    </script>
+    <!-- Gargalo Stagger Reveal -->
+    <script>
+        (function() {
+            const revealItems = document.querySelectorAll('.reveal-item');
+            if (!revealItems.length) return;
+
+            const staggerObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            revealItems.forEach(item => staggerObserver.observe(item));
         })();
     </script>
 </body>

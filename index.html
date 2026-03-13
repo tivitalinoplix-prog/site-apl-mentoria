@@ -407,7 +407,7 @@
             background: #120000;
             z-index: 50;
             pointer-events: none;
-            transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+            display: none;
         }
         .panel-open--left {
             left: 0;
@@ -417,14 +417,15 @@
             right: 0;
             transform: translateX(0);
         }
-        .panel-open--left.open {
+        .panel-open.is-active {
+            display: block;
+            transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+        .panel-open--left.is-open {
             transform: translateX(-100%);
         }
-        .panel-open--right.open {
+        .panel-open--right.is-open {
             transform: translateX(100%);
-        }
-        .panel-open.hidden {
-            display: none;
         }
         .panel-open .panel-text {
             position: absolute;
@@ -469,6 +470,51 @@
             padding: 24px 32px;
             margin-bottom: 40px;
             width: fit-content;
+        }
+
+        /* SVG Cards */
+        .card-visual {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a0000 100%);
+            border-radius: 12px 12px 0 0;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(220,30,30,0.2);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        /* Credentials Ticker */
+        .credentials-ticker-wrap {
+            overflow: hidden;
+            border-top: 1px solid rgba(220,30,30,0.15);
+            border-bottom: 1px solid rgba(220,30,30,0.15);
+            padding: 14px 0;
+            margin: 40px 0;
+            background: rgba(220,30,30,0.03);
+        }
+        .credentials-ticker {
+            display: flex;
+            gap: 40px;
+            width: max-content;
+            animation: tickerMove 30s linear infinite;
+        }
+        .credentials-ticker:hover { animation-play-state: paused; }
+        .credentials-ticker span {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #666;
+            white-space: nowrap;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        .credentials-ticker span:hover { color: #dc1e1e; }
+        @keyframes tickerMove {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
     </style>
 </head>
@@ -682,7 +728,9 @@
                     <!-- Card 1 -->
                     <div class="reveal delay-100 w-full h-full">
                         <div class="pillar-card group relative rounded-xl overflow-hidden h-[450px] md:h-[600px] cursor-pointer shadow-lg hover:shadow-accent/20 transition-all duration-700 border border-white/5 hover:border-accent/40 w-full flex flex-col justify-end">
-                            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" class="pillar-img absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] md:grayscale" alt="Otimização de Processos">
+                            <div class="card-visual">
+                                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#dc1e1e" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+                            </div>
                             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-90 transition-opacity duration-300"></div>
                             <div class="pillar-cap absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-500"></div>
                             <div class="relative p-4 md:p-5 flex flex-col items-center text-center z-10 w-full mb-4">
@@ -703,7 +751,9 @@
                     <!-- Card 2 -->
                     <div class="reveal delay-200 w-full h-full">
                         <div class="pillar-card group relative rounded-xl overflow-hidden h-[450px] md:h-[600px] cursor-pointer shadow-lg hover:shadow-accent/20 transition-all duration-700 border border-white/5 hover:border-accent/40 w-full flex flex-col justify-end">
-                            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&q=80" class="pillar-img absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] md:grayscale" alt="Automação de Documentos">
+                            <div class="card-visual">
+                                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#dc1e1e" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                            </div>
                             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-90 transition-opacity duration-300"></div>
                             <div class="pillar-cap absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-500"></div>
                             <div class="relative p-4 md:p-5 flex flex-col items-center text-center z-10 w-full mb-4">
@@ -724,7 +774,9 @@
                     <!-- Card 3 -->
                     <div class="reveal delay-300 w-full h-full">
                         <div class="pillar-card group relative rounded-xl overflow-hidden h-[450px] md:h-[600px] cursor-pointer shadow-lg hover:shadow-accent/20 transition-all duration-700 border border-white/5 hover:border-accent/40 w-full flex flex-col justify-end">
-                            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" class="pillar-img absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] md:grayscale" alt="Auditoria de IA">
+                            <div class="card-visual">
+                                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#dc1e1e" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg>
+                            </div>
                             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-90 transition-opacity duration-300"></div>
                             <div class="pillar-cap absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-500"></div>
                             <div class="relative p-4 md:p-5 flex flex-col items-center text-center z-10 w-full mb-4">
@@ -796,6 +848,30 @@
                             <div class="reveal delay-400 glass-panel p-4 rounded-sm card-hover">
                                 <span class="font-tech text-accent text-[9px] tracking-widest block mb-1">_PSICOLOGIA</span>
                                 <span class="text-[10px] text-secondary font-light">Processos Cognitivos</span>
+                            </div>
+                        </div>
+
+                        </div>
+
+                        <div class="credentials-ticker-wrap">
+                            <div class="credentials-ticker">
+                                <span>_NEUROCIÊNCIAS</span>
+                                <span>_IA GENERATIVA</span>
+                                <span>_ENGENHARIA DE PROMPT</span>
+                                <span>_LLM ALIGNMENT</span>
+                                <span>_RLHF</span>
+                                <span>_CIÊNCIA DA CRIATIVIDADE</span>
+                                <span>_PSICOLOGIA COGNITIVA</span>
+                                <span>_MBA IA</span>
+                                <!-- duplicar os mesmos spans para loop infinito -->
+                                <span>_NEUROCIÊNCIAS</span>
+                                <span>_IA GENERATIVA</span>
+                                <span>_ENGENHARIA DE PROMPT</span>
+                                <span>_LLM ALIGNMENT</span>
+                                <span>_RLHF</span>
+                                <span>_CIÊNCIA DA CRIATIVIDADE</span>
+                                <span>_PSICOLOGIA COGNITIVA</span>
+                                <span>_MBA IA</span>
                             </div>
                         </div>
 
@@ -1276,38 +1352,33 @@
     <!-- Panel Open Effect -->
     <script>
         (function() {
-            const panelLeft = document.getElementById('panel-left');
-            const panelRight = document.getElementById('panel-right');
-            const problemSection = document.getElementById('problem');
-            if (!panelLeft || !panelRight || !problemSection) return;
+            const panelLeft = document.querySelector('.panel-open--left');
+            const panelRight = document.querySelector('.panel-open--right');
+            const diagSection = document.querySelector('#problem');
 
-            // Start hidden until preloader finishes
-            panelLeft.classList.add('hidden');
-            panelRight.classList.add('hidden');
+            if (!panelLeft || !panelRight || !diagSection) return;
 
-            // Show panels after preloader (2.5s approx)
-            setTimeout(() => {
-                panelLeft.classList.remove('hidden');
-                panelRight.classList.remove('hidden');
-            }, 2500);
-
-            const panelObserver = new IntersectionObserver((entries, obs) => {
+            const panelObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        panelLeft.classList.add('open');
-                        panelRight.classList.add('open');
-
+                        panelLeft.classList.add('is-active');
+                        panelRight.classList.add('is-active');
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                panelLeft.classList.add('is-open');
+                                panelRight.classList.add('is-open');
+                            });
+                        });
                         setTimeout(() => {
-                            panelLeft.classList.add('hidden');
-                            panelRight.classList.add('hidden');
-                        }, 1000);
-
-                        obs.disconnect();
+                            panelLeft.style.display = 'none';
+                            panelRight.style.display = 'none';
+                        }, 1200);
+                        panelObserver.disconnect();
                     }
                 });
             }, { threshold: 0.2 });
 
-            panelObserver.observe(problemSection);
+            panelObserver.observe(diagSection);
         })();
     </script>
 </body>

@@ -456,11 +456,11 @@
 
     <!-- Preloader Porta Dupla -->
     <div id="preloader" class="fixed inset-0 z-[100] flex w-full h-full bg-[#050507]">
-        <div id="door-left" class="door-left relative overflow-hidden flex-1 border-r border-[#1a1a1a] bg-[#050507] flex items-center justify-end">
-            <span class="text-[clamp(80px,25vw,350px)] font-display font-black tracking-tighter text-white opacity-90 pr-4 select-none drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]">NA</span>
+        <div id="door-left" class="door-left relative flex-1 border-r border-[#1a1a1a] bg-[#050507] flex items-center justify-end">
+            <span class="text-[clamp(40px,12vw,175px)] font-display font-black tracking-tighter text-white opacity-90 select-none drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]">NA</span>
         </div>
-        <div id="door-right" class="door-right relative overflow-hidden flex-1 border-l border-[#1a1a1a] bg-[#050507] flex items-center justify-start">
-            <span class="text-[clamp(80px,25vw,350px)] font-display font-black tracking-tighter text-[#dc1e1e] opacity-90 pl-4 select-none drop-shadow-[0_0_30px_rgba(232,39,42,0.3)]">VEiA</span>
+        <div id="door-right" class="door-right relative flex-1 border-l border-[#1a1a1a] bg-[#050507] flex items-center justify-start">
+            <span class="text-[clamp(40px,12vw,175px)] font-display font-black tracking-tighter text-[#dc1e1e] opacity-90 select-none drop-shadow-[0_0_30_30px_rgba(232,39,42,0.3)]">VEiA</span>
         </div>
         <div id="preloader-content" class="absolute inset-x-0 bottom-[10%] flex flex-col items-center justify-center pointer-events-none z-30 transition-opacity duration-300">
             <span class="font-tech text-xs tracking-[0.3em] text-[#dc1e1e] uppercase animate-pulse">_Initialize_Connection</span>
@@ -472,7 +472,7 @@
 
     <!-- Global Background / Designer Image (Z-0) -->
     <div class="fixed inset-0 z-0 flex justify-center items-end pointer-events-none">
-        <img src="assets/hero.bg.jpg" alt="NA VEiA" class="h-[60vh] lg:h-[92vh] w-full object-cover opacity-60 mix-blend-luminosity" style="mask-image: linear-gradient(to bottom, black 50%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%); object-position: center top;">
+        <img id="global-hero-bg" src="assets/hero.bg.jpg" alt="NA VEiA" class="h-[60vh] lg:h-[92vh] w-full object-cover opacity-60 mix-blend-luminosity will-change-transform" style="mask-image: linear-gradient(to bottom, black 50%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%); object-position: center top; transition: transform 0.1s ease-out;">
     </div>
 
     <!-- Navigation (Z-50) -->
@@ -504,14 +504,22 @@
             <a href="#ai-consultant" class="hidden lg:block text-[#dc1e1e] font-tech text-[10px] tracking-widest uppercase hover:text-white transition-colors">Diagnóstico</a>
 
             <!-- Hamburger Menu (Mobile Only) -->
-            <button class="lg:hidden p-2 -mr-2 text-white hover:opacity-70">
-                <iconify-icon icon="solar:hamburger-menu-linear" width="24" height="24"></iconify-icon>
+            <button id="menu-btn" class="lg:hidden p-2 -mr-2 text-white hover:opacity-70">
+                <iconify-icon id="menu-icon" icon="solar:hamburger-menu-linear" width="24" height="24"></iconify-icon>
             </button>
         </div>
     </nav>
 
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="hidden-menu fixed inset-0 z-[60] bg-[#050507]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 lg:hidden">
+        <a href="#problem" class="mobile-link text-2xl font-display font-black tracking-tighter text-white hover:text-[#dc1e1e] transition-colors">GARGALOS</a>
+        <a href="#method" class="mobile-link text-2xl font-display font-black tracking-tighter text-white hover:text-[#dc1e1e] transition-colors">MÉTODO</a>
+        <a href="#mentor" class="mobile-link text-2xl font-display font-black tracking-tighter text-white hover:text-[#dc1e1e] transition-colors">ESPECIALISTA</a>
+        <a href="#ai-consultant" class="mobile-link text-2xl font-display font-black tracking-tighter text-[#dc1e1e] border border-[#dc1e1e]/20 px-8 py-3 rounded-full bg-[#dc1e1e]/5">DIAGNÓSTICO</a>
+    </div>
+
     <!-- Main Grid Layout (HERO) -->
-    <div id="hero-section" class="relative z-10 w-full min-h-screen grid grid-cols-1 lg:grid-cols-2 pointer-events-none overflow-hidden">
+    <div id="hero-section" class="sticky top-0 z-10 w-full h-screen grid grid-cols-1 lg:grid-cols-2 pointer-events-none overflow-hidden">
         
         <!-- Left Part: NA -->
         <div class="h-full flex flex-col justify-center items-center lg:items-end lg:pr-12 pointer-events-auto">
@@ -633,7 +641,7 @@
                         <div class="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none z-0"></div>
                         <div class="relative z-10">
                             <div class="w-12 h-12 flex items-center justify-center bg-[var(--accent-red)] text-white mb-8 shadow-[0_0_15px_rgba(232,39,42,0.3)] rounded-none">
-                                <iconify-icon icon="solar:git-network-linear" width="24"></iconify-icon>
+                                <iconify-icon icon="solar:chart-square-linear" width="24"></iconify-icon>
                             </div>
                             <h3 class="text-3xl lg:text-4xl font-display font-black tracking-tight mb-4 text-white uppercase">Otimização Inteligente</h3>
                             <p class="text-base lg:text-lg text-[#888888] leading-relaxed font-light max-w-md">
@@ -820,10 +828,10 @@
                         <!-- Item 4 -->
                         <div class="group flex-1 flex flex-col lg:flex-row items-start lg:items-center justify-between p-6 lg:px-12 hover:bg-white/5 transition-colors cursor-default gap-4">
                             <div class="flex items-center gap-8 w-full lg:w-auto">
-                                <div class="flex items-center gap-3 w-32">
-                                     <iconify-icon icon="solar:brain-bold" width="16" class="text-white/40 group-hover:text-[#dc1e1e] transition-colors"></iconify-icon>
-                                     <span class="text-sm font-mono text-white/40 group-hover:text-white/60 transition-colors">Pilar</span>
-                                </div>
+                                  <div class="flex items-center gap-3 w-32">
+                                      <iconify-icon icon="solar:brain-linear" width="16" class="text-white/40 group-hover:text-[#dc1e1e] transition-colors"></iconify-icon>
+                                      <span class="text-sm font-mono text-white/40 group-hover:text-white/60 transition-colors">Pilar</span>
+                                 </div>
                                 <h4 class="text-lg font-medium tracking-tight text-white">Processos Cognitivos</h4>
                             </div>
                         </div>
@@ -1081,7 +1089,7 @@
     </footer>
 
     <!-- Logic Script -->
-    <script type="module">
+    <script>
         const stagesData = [
             { id: 1, icon: "solar:lightbulb-bold", title: "1. Processos Manuais", desc: "Equipe executa tarefas repetitivas sem automação.", color: "text-yellow-500", bg: "bg-yellow-500" },
             { id: 2, icon: "solar:user-hand-up-bold", title: "2. Documentação Desestruturada", desc: "Relatórios, propostas e documentos sem padrão.", color: "text-orange-400", bg: "bg-orange-400" },
@@ -1102,7 +1110,8 @@
             "A estagnação é reversível. Uma intervenção estratégica com IA pode transformar sua operação agora."
         ];
 
-        document.addEventListener('DOMContentLoaded', () => {
+        (function() {
+            console.log('NA VEiA Logic Start');
             // --- Preloader Logic ---
             const preloader = document.getElementById('preloader');
             const loaderBar = document.getElementById('loader-bar');
@@ -1186,8 +1195,8 @@
                 }
             }
 
-            menuBtn.addEventListener('click', toggleMenu);
-            mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+            if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+            if (mobileLinks) mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
             // --- Problem Section (Stages) ---
             const stagesContainer = document.getElementById('stages-container');
@@ -1303,7 +1312,7 @@
                 aiBtn.classList.add('bg-surface', 'border', 'border-white/10', 'text-white/50', 'cursor-not-allowed');
                 aiBtn.classList.remove('bg-accent', 'text-white', 'hover:brightness-110');
             });
-        });
+        })();
     </script>
     <!-- Hero Split Parallax Effect -->
     <script>
@@ -1318,6 +1327,13 @@
             function updateSplit() {
                 const scrollY = window.scrollY;
                 const heroHeight = heroSection.offsetHeight;
+
+                // Zoom effect for background image
+                const bgImg = document.getElementById('global-hero-bg');
+                if (bgImg) {
+                    const scale = 1 + (scrollY / 4000); // Smooth zoom
+                    bgImg.style.transform = `scale(${scale})`;
+                }
 
                 if (scrollY <= heroHeight) {
                     const offset = scrollY * 0.25;

@@ -165,6 +165,29 @@
             100% { transform: scale(1.2); }
         }
 
+        /* === AURA STYLE UTILS === */
+        .grid-bg {
+            background-image: radial-gradient(rgba(232, 39, 42, 0.15) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .tech-label {
+            font-family: var(--font-tech);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .split-block {
+            display: grid;
+            grid-template-cols: 1fr 1fr;
+        }
+        @media (max-width: 1024px) {
+            .split-block { grid-template-cols: 1fr; }
+        }
+
         /* === HERO SECTION NEW === */
         .text-hero {
             font-size: clamp(60px, 18vw, 240px);
@@ -608,8 +631,55 @@
                             </div>
                         </div>
                     </div>
+          <!-- Testimonials Section (Aura Contrast Layout) -->
+        <section id="depoimentos" class="relative z-20 w-full border-t border-white/10 pointer-events-auto bg-[#0a0a0a]">
+            <div class="split-block w-full">
+                <!-- Left: Massive Statement -->
+                <div class="p-8 lg:p-20 bg-[#000000] border-r border-white/10 flex flex-col justify-center">
+                    <span class="tech-label w-fit mb-8">_PROOF_OF_WORK</span>
+                    <h2 class="text-6xl lg:text-[10rem] font-black font-display tracking-tighter text-white leading-[0.85] uppercase mb-12">
+                        O QUE <br><span class="text-[#dc1e1e]">DIZEM.</span>
+                    </h2>
+                    <p class="text-2xl text-[#888888] font-light leading-snug max-w-md">
+                        Evidências reais de transformação e eficiência autônoma.
+                    </p>
+                </div>
 
-                    <!-- Dynamic Stages Container for JS injection -->
+                <!-- Right: Content Blocks -->
+                <div class="flex flex-col">
+                    <!-- Testimonial 01: Gray Block -->
+                    <div class="p-8 lg:p-16 bg-[#161616] border-b border-white/10 group">
+                        <iconify-icon icon="solar:double-quotes-l-bold" width="40" class="text-[#dc1e1e]/40 mb-8"></iconify-icon>
+                        <p class="text-xl lg:text-2xl text-white/90 font-light leading-relaxed mb-10 italic">
+                            "A implementação dos fluxos de Auditoria de IA mudou completamente nossa segurança jurídica. Reduzimos erros em 95%."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center font-tech text-xs">BT_01</div>
+                            <div>
+                                <span class="block text-white font-bold text-sm">Empresa de Logística</span>
+                                <span class="block text-[#888888] text-xs font-mono uppercase tracking-widest">_OPTIMIZED</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 02: Red Block -->
+                    <div class="p-8 lg:p-16 bg-[#dc1e1e] group relative overflow-hidden">
+                        <div class="absolute inset-0 grid-bg opacity-10"></div>
+                        <iconify-icon icon="solar:double-quotes-l-bold" width="40" class="text-white/40 mb-8"></iconify-icon>
+                        <p class="text-xl lg:text-2xl text-white font-bold leading-relaxed mb-10">
+                            "Escalamos nossa produção de relatórios técnicos de 5 para 50 por dia sem contratar novos analistas. A precisão do Thiago é impressionante."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-black/20 border border-white/20 flex items-center justify-center font-tech text-xs">BT_02</div>
+                            <div>
+                                <span class="block text-white font-bold text-sm">Consultoria Engenharia</span>
+                                <span class="block text-white/60 text-xs font-mono uppercase tracking-widest">_SCALED_MASSIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
                     <div id="stages-container" class="flex flex-col flex-1">
                         <!-- JS WILL INJECT CARDS HERE -->
                     </div>
@@ -620,178 +690,158 @@
 
         <hr class="section-divider">
 
-        <!-- Method Section (Brutalist Bento Box) -->
-        <section id="method" class="relative z-20 w-full border-t border-white/10 pointer-events-auto bg-[var(--bg-main)]">
-            <div class="max-w-7xl mx-auto p-8 lg:p-12">
-                <!-- Intro Text -->
-                <div class="mb-12">
-                     <span class="diag-label font-tech uppercase mb-4 block text-[var(--accent-red)] tracking-widest text-[10px]">_THE_FRAMEWORK</span>
-                     <h2 class="text-4xl lg:text-7xl font-display font-black tracking-tighter text-white mb-6 leading-[0.9] uppercase">
-                         O MÉTODO <span class="text-neutral-500">NA VEiA</span>
-                     </h2>
-                     <p class="text-[#888888] text-lg max-w-xl leading-relaxed font-light">
-                         3 pilares fundamentais. Precisão técnica absoluta para escalar seu negócio com estruturação automatizada e IA.
-                     </p>
+        <!-- Method Section (Aura Bento Box Evolution) -->
+        <section id="method" class="relative z-20 w-full border-t border-white/10 pointer-events-auto bg-[#0a0a0a] overflow-hidden">
+            <div class="split-block w-full border-b border-white/10">
+                <!-- Left: Section Title Block -->
+                <div class="p-8 lg:p-20 bg-[#111111] border-r border-white/10 flex flex-col justify-center">
+                    <span class="tech-label w-fit mb-6">_THE_FRAMEWORK</span>
+                    <h2 class="text-6xl lg:text-8xl font-display font-black tracking-tighter text-white leading-[0.9] uppercase mb-8">
+                        MÉTODO<br><span class="text-white/20">NA VEiA</span>
+                    </h2>
+                    <p class="text-xl text-[#888888] font-light leading-relaxed max-w-md">
+                        Três pilares de precisão técnica para transformar operações em motores de crescimento.
+                    </p>
                 </div>
-
-                <!-- Bento Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto">
-                    <!-- Card 1: Otimização Inteligente (Span 2 cols) -->
-                    <div class="group relative bg-[var(--bg-card)] border border-white/10 p-8 lg:p-10 flex flex-col justify-between hover:border-[var(--accent-red)] transition-colors rounded-none md:col-span-2 overflow-hidden min-h-[350px]">
-                        <div class="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none z-0"></div>
-                        <div class="relative z-10">
-                            <div class="w-12 h-12 flex items-center justify-center bg-[var(--accent-red)] text-white mb-8 shadow-[0_0_15px_rgba(232,39,42,0.3)] rounded-none">
-                                <iconify-icon icon="solar:chart-square-linear" width="24"></iconify-icon>
-                            </div>
-                            <h3 class="text-3xl lg:text-4xl font-display font-black tracking-tight mb-4 text-white uppercase">Otimização Inteligente</h3>
-                            <p class="text-base lg:text-lg text-[#888888] leading-relaxed font-light max-w-md">
-                                Mapeamento estratégico de gargalos e estruturação de fluxos de trabalho autônomos de back-office.
-                            </p>
+                
+                <!-- Right: Pillar 01 (Otimização) -->
+                <div class="group relative p-8 lg:p-20 flex flex-col justify-between hover:bg-[#161616] transition-colors overflow-hidden">
+                    <div class="absolute inset-0 grid-bg opacity-10"></div>
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 flex items-center justify-center bg-[#dc1e1e] text-white mb-12 shadow-[0_0_30px_rgba(220,30,30,0.3)]">
+                            <iconify-icon icon="solar:chart-square-linear" width="32"></iconify-icon>
                         </div>
-                        <div class="absolute bottom-8 right-8 text-[10px] font-tech text-[var(--accent-red)] tracking-widest z-10">[01_OTIMIZAÇÃO]</div>
-                        <!-- Decorative Abstract Rectangles -->
-                        <div class="absolute right-0 bottom-0 top-0 w-1/3 border-l border-white/5 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-30 group-hover:opacity-60 transition-opacity z-0"></div>
+                        <h3 class="text-4xl lg:text-5xl font-display font-black tracking-tighter text-white uppercase mb-6">Otimização<br>Inteligente</h3>
+                        <p class="text-lg text-[#888888] font-light leading-relaxed max-w-sm">
+                            Mapeamento estratégico de fluxos autônomos de back-office.
+                        </p>
                     </div>
+                    <span class="tech-label w-fit mt-12">[STEP: 01]</span>
+                </div>
+            </div>
 
-                    <!-- Card 2: Automação de Docs (Span 1 col, IDE style) -->
-                    <div class="group relative bg-[var(--bg-card)] border border-white/10 p-8 lg:p-10 flex flex-col justify-between hover:border-[var(--accent-red)] transition-colors rounded-none md:col-span-1 min-h-[350px]">
-                        <div class="relative z-10 h-full flex flex-col">
-                            <div class="w-12 h-12 flex items-center justify-center bg-[var(--accent-red)] text-white mb-8 shadow-[0_0_15px_rgba(232,39,42,0.3)] rounded-none">
+            <div class="grid grid-cols-1 lg:grid-cols-3 w-full">
+                <!-- Pillar 02: Automação (IDE Style) -->
+                <div class="col-span-1 border-r border-white/10 p-8 lg:p-12 bg-[#0a0a0a] flex flex-col justify-between group hover:bg-[#111111] transition-colors">
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-4 mb-12">
+                             <div class="w-12 h-12 flex items-center justify-center border border-[#dc1e1e]/30 text-[#dc1e1e]">
                                 <iconify-icon icon="solar:document-add-linear" width="24"></iconify-icon>
                             </div>
-                            <h3 class="text-2xl lg:text-3xl font-display font-black tracking-tight mb-4 text-white uppercase">Automação de Docs</h3>
-                            <p class="text-sm lg:text-base text-[#888888] leading-relaxed font-light mb-8">
-                                Engenharia de Prompt para redigir documentos técnicos e relatórios em escala.
-                            </p>
-                            <!-- IDE Code Snippet Block -->
-                            <div class="mt-auto w-full border border-white/10 bg-[#0A0A0A] p-4 font-mono text-[10px] lg:text-xs leading-relaxed tracking-wider rounded-none overflow-hidden relative shadow-inner">
-                                <!-- Mac OS / IDE Buttons -->
-                                <div class="flex gap-1.5 mb-3 opacity-50 border-b border-white/5 pb-2">
-                                    <div class="w-2.5 h-2.5 bg-[var(--accent-red)] rounded-none"></div>
-                                    <div class="w-2.5 h-2.5 bg-[#888888] rounded-none"></div>
-                                    <div class="w-2.5 h-2.5 bg-[#888888] rounded-none"></div>
-                                </div>
-                                <div class="space-y-1">
-                                    <p><span class="text-[#c678dd]">function</span> <span class="text-[#61afef]">generate_document</span><span class="text-[#abb2bf]">() {</span></p>
-                                    <p class="pl-4 text-[#5c6370] italic">// Processing LLM return</p>
-                                    <p class="pl-4"><span class="text-[#c678dd]">return</span> <span class="text-[#e5c07b]">Success</span><span class="text-[#abb2bf]">;</span></p>
-                                    <p><span class="text-[#abb2bf]">}</span><span class="inline-block w-2 h-3 lg:h-4 ml-1 align-middle bg-[var(--accent-red)] animate-pulse"></span></p>
-                                </div>
-                            </div>
+                            <span class="tech-label">_CORE_ENGINE</span>
                         </div>
+                        <h3 class="text-3xl font-display font-black tracking-tighter text-white uppercase mb-6">Automação de Docs</h3>
+                        <p class="text-[#888888] font-light leading-relaxed mb-10">
+                            Engenharia de Prompt para redação técnica em escala massiva.
+                        </p>
                     </div>
 
-                    <!-- Card 3: Auditoria de IA (Span 3 cols) -->
-                    <div class="group relative bg-[var(--bg-card)] border border-white/10 p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between hover:border-[var(--accent-red)] transition-colors rounded-none md:col-span-3 min-h-[300px] overflow-hidden">
-                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_right,rgba(232,39,42,0.05)_0,transparent_60%)] pointer-events-none z-0"></div>
-                        <div class="relative z-10 max-w-2xl mb-8 md:mb-0">
-                            <div class="w-12 h-12 flex items-center justify-center bg-[var(--accent-red)] text-white mb-8 shadow-[0_0_15px_rgba(232,39,42,0.3)] rounded-none">
+                    <!-- IDE Snippet refined -->
+                    <div class="mt-auto w-full border border-white/10 bg-[#050505] p-6 font-mono text-[11px] leading-relaxed tracking-wider overflow-hidden relative shadow-2xl">
+                        <div class="flex gap-1.5 mb-4 border-b border-white/5 pb-2">
+                            <div class="w-2.5 h-2.5 bg-[#dc1e1e]"></div>
+                            <div class="w-2.5 h-2.5 bg-white/10"></div>
+                            <div class="w-2.5 h-2.5 bg-white/10"></div>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-[#c678dd]">pipeline <span class="text-[#abb2bf]">{</span></p>
+                            <p class="pl-4 text-[#61afef]">task: <span class="text-[#98c379]">"DOCUMENT_GEN"</span></p>
+                            <p class="pl-4 text-[#61afef]">engine: <span class="text-[#d19a66]">LLM_V4_NAVEIA</span></p>
+                            <p class="text-[#abb2bf]">}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pillar 03: Auditoria (Massive Block) -->
+                <div class="col-span-1 lg:col-span-2 p-8 lg:p-12 bg-[#111111] relative overflow-hidden flex flex-col justify-between group">
+                    <div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-6 mb-12">
+                            <div class="w-12 h-12 flex items-center justify-center bg-[#dc1e1e] text-white">
                                 <iconify-icon icon="solar:shield-keyhole-linear" width="24"></iconify-icon>
                             </div>
-                            <h3 class="text-3xl lg:text-4xl font-display font-black tracking-tight mb-4 text-white uppercase border-l-4 border-[var(--accent-red)] pl-4">Auditoria de IA</h3>
-                            <p class="text-base lg:text-lg text-[#888888] leading-relaxed font-light pl-5">
-                                Segurança absoluta com RLHF e LLM Alignment auditado pelo humano para eliminar alucinações e garantir <strong class="text-[var(--accent-red)] font-bold">100% de Precisão Técnica</strong>. Nossos fluxos revisam a si mesmos (Self-Correction).
-                            </p>
+                            <h3 class="text-4xl lg:text-5xl font-display font-black tracking-tighter text-white uppercase">Auditoria de IA</h3>
                         </div>
-                        <!-- Abstract Brutalist Graphic -->
-                        <div class="relative z-10 w-full md:w-auto flex items-center justify-center gap-6 hidden md:flex shrink-0">
-                            <div class="w-32 h-32 border-2 border-[var(--accent-red)] flex items-center justify-center glow-red bg-black/50 backdrop-blur-sm relative">
-                                <div class="absolute inset-0 border border-[var(--accent-red)]/30 animate-pulse-glow"></div>
-                                <iconify-icon icon="solar:target-bold" width="48" class="text-[var(--accent-red)]"></iconify-icon>
-                            </div>
-                            <div class="flex flex-col gap-3">
-                                <div class="w-20 h-4 bg-[var(--bg-main)] border border-white/20"></div>
-                                <div class="w-40 h-4 bg-[var(--bg-main)] border border-white/20"></div>
-                                <div class="w-28 h-4 bg-[var(--accent-red)] shadow-[0_0_15px_var(--accent-red)]"></div>
-                            </div>
+                        <p class="text-xl lg:text-2xl text-white/80 font-light leading-snug max-w-2xl mb-12 border-l-4 border-[#dc1e1e] pl-8">
+                            Segurança absoluta com <span class="text-white font-bold">RLHF</span> e alinhamento humano para eliminar alucinações.
+                        </p>
+                    </div>
+
+                    <div class="relative z-10 flex items-center justify-between mt-auto pt-10 border-t border-white/10">
+                        <div class="flex items-center gap-4">
+                            <span class="tech-label">PRECISION: 100%</span>
+                            <span class="tech-label">ALIGNED: YES</span>
                         </div>
+                        <iconify-icon icon="solar:target-bold" width="32" class="text-[#dc1e1e] opacity-40 group-hover:scale-125 transition-transform"></iconify-icon>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Mentor Section -->
-        <section id="mentor" class="relative z-20 bg-[#120000] text-white w-full border-t border-b border-white/10 pointer-events-auto font-sans">
-            <div class="grid grid-cols-1 lg:grid-cols-4 w-full">
+        <!-- Mentor Section (Aura Split 50/50) -->
+        <section id="mentor" class="relative z-20 bg-[#0a0a0a] text-white w-full border-t border-white/10 pointer-events-auto">
+            <div class="split-block w-full min-h-screen lg:min-h-0">
                 
-                <!-- Header (Full Width) -->
-                <div class="col-span-1 lg:col-span-4 p-8 lg:p-12 border-b border-white/10 flex flex-col items-start gap-6">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dc1e1e]/10 border border-[#dc1e1e]/30 backdrop-blur-md shadow-sm">
-                        <iconify-icon icon="solar:star-fall-minimalistic-2-bold" width="16" class="text-[#dc1e1e]"></iconify-icon>
-                        <span class="text-xs font-medium tracking-wide text-[#dc1e1e] uppercase">O Especialista</span>
-                    </div>
-                    <h2 class="text-5xl lg:text-8xl font-black font-display tracking-tighter text-white leading-[0.9] uppercase">
-                        Thiago<br><span class="text-[#dc1e1e]">Vitalino.</span>
-                    </h2>
-                    <p class="text-white/70 text-xl lg:text-2xl max-w-2xl font-light leading-relaxed">
-                        Sou Especialista em Avaliação de Inteligência Artificial e Engenharia de Prompt.
-                    </p>
-                </div>
-
-                <!-- Left Column: Profile Card -->
-                <div class="col-span-1 lg:col-span-1 lg:border-b-0 flex flex-col min-h-[600px] bg-[#0a0a0a] h-full border-white/10 lg:border-r border-b pt-8 pr-8 pb-8 pl-8 justify-between">
-                    <div class="flex flex-col gap-8">
-                        <!-- Avatar -->
-                        <div class="aspect-[4/5] overflow-hidden group bg-black/20 w-full border-white/10 border rounded-sm relative shadow-2xl">
-                            <img id="mentor-img" src="./assets/mentor.jpg" alt="Thiago Vitalino" class="group-hover:grayscale-0 transition-all duration-700 w-full h-full object-cover grayscale object-top">
-                            <div class="bg-gradient-to-t from-[#0a0a0a]/80 via-[#0a0a0a]/20 to-transparent opacity-80 absolute top-0 right-0 bottom-0 left-0"></div>
-                            
-                            <!-- Availability Badge -->
-                            <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                                 <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
-                                     <div class="w-1.5 h-1.5 rounded-full bg-[#dc1e1e] shadow-[0_0_8px_rgba(220,30,30,0.5)]"></div>
-                                     <span class="text-[10px] font-medium uppercase tracking-wider text-white">Auth_Key Verified</span>
-                                 </div>
-                            </div>
+                <!-- Left Side: Massive Typography & Credentials -->
+                <div class="p-8 lg:p-20 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10 bg-[#111111] relative overflow-hidden">
+                    <div class="absolute inset-0 grid-bg opacity-20 pointer-events-none"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-4 mb-12">
+                            <span class="tech-label">[ID: EXPERT_AI_01]</span>
+                            <div class="h-px flex-1 bg-white/10"></div>
                         </div>
                         
-                        <div>
-                            <h3 class="text-2xl font-medium tracking-tight mb-2 text-white">Quem sou eu</h3>
-                            <p class="text-sm text-[#888888] leading-relaxed font-light">
-                                Especialista em Engenharia de Conhecimento.
+                        <h2 class="text-7xl lg:text-[12rem] font-black font-display tracking-tighter leading-[0.8] uppercase mb-8">
+                            Thiago<br><span class="text-[#dc1e1e] drop-shadow-[0_0_30px_rgba(220,30,30,0.2)]">Vitalino.</span>
+                        </h2>
+                        
+                        <div class="max-w-xl">
+                            <p class="text-2xl lg:text-3xl font-light text-white/90 leading-tight mb-8 italic border-l-4 border-[#dc1e1e] pl-6">
+                                "Minha especialidade é capturar a inteligência do seu negócio e transformá-la em fluxos automatizados."
+                            </p>
+                            <p class="text-lg text-[#888888] font-light leading-relaxed mb-12">
+                                Especialista em Avaliação de Inteligência Artificial e Engenharia de Prompt, combinando Neurociência com fluxos recursivos para precisão cirúrgica.
                             </p>
                         </div>
-
-                        <!-- Socials -->
-                        <div class="flex items-center gap-3">
-                            <a href="https://instagram.com/thiagovitalino" target="_blank" class="w-12 h-12 flex items-center justify-center border border-white/10 rounded-full hover:bg-white hover:text-[#dc1e1e] transition-all hover:scale-110 group cursor-pointer">
-                                <iconify-icon icon="simple-icons:instagram" width="18"></iconify-icon>
-                            </a>
-                            <a href="https://linkedin.com/in/thiagovitalino" target="_blank" class="w-12 h-12 flex items-center justify-center border border-white/10 rounded-full hover:bg-white hover:text-[#dc1e1e] transition-all hover:scale-110 group cursor-pointer">
-                                <iconify-icon icon="simple-icons:linkedin" width="18"></iconify-icon>
-                            </a>
-                        </div>
                     </div>
 
-                    <button onclick="window.location.href='https://wa.me/5522998586180?text=Olá%20Vitalino,%20gostaria%20de%20agendar%20um%20diagnóstico'" class="group mt-12 w-full py-4 px-6 bg-white text-[#120000] font-semibold text-sm tracking-wide rounded-sm flex items-center justify-between hover:bg-gray-200 transition-all shadow-xl">
-                        Fale comigo
-                        <iconify-icon icon="solar:arrow-right-up-linear" width="18" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform stroke-[2]"></iconify-icon>
-                    </button>
+                    <div class="relative z-10 flex flex-wrap gap-3 mt-auto">
+                        <span class="tech-label">Neurociências</span>
+                        <span class="tech-label">IA Generativa</span>
+                        <span class="tech-label">Prompt Engineering</span>
+                        <span class="tech-label">LLM Alignment</span>
+                    </div>
                 </div>
 
-                <!-- Right Column: Details -->
-                <div class="col-span-1 lg:col-span-3 flex flex-col h-full bg-[#0a0a0a]">
-                    
-                    <!-- Bio Section -->
-                    <div class="p-8 lg:p-12 border-b border-white/10 bg-white/[0.02] min-h-[300px] flex flex-col justify-center">
-                        <p class="text-2xl lg:text-3xl font-normal leading-snug text-white/90 max-w-3xl italic">
-                            "Minha especialidade é capturar a inteligência do seu negócio e transformá-la em fluxos automatizados. Combinando Neurociência com o desenvolvimento de fluxos recursivos e alinhamento de LLMs, garanto que a IA atue a seu favor com precisão cirúrgica."
-                        </p>
+                <!-- Right Side: Image & Connect -->
+                <div class="relative flex flex-col">
+                    <div class="h-[60vh] lg:h-full relative overflow-hidden group">
+                        <img id="mentor-img" src="./assets/mentor.jpg" alt="Thiago Vitalino" class="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105 object-top">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80"></div>
                         
-                        <!-- Tags -->
-                        <div class="flex flex-wrap gap-2 mt-12">
-                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">Neurociências</span>
-                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">IA Generativa</span>
-                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">Engenharia de Prompt</span>
-                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">LLM Alignment</span>
-                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">RLHF</span>
-                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">MBA IA</span>
-                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">Psicologia Cognitiva</span>
+                        <!-- Floating Identity Badge -->
+                        <div class="absolute top-8 right-8 flex flex-col items-end gap-2">
+                            <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-none">
+                                <span class="block text-[10px] font-tech text-[#dc1e1e] mb-1">STATUS: ONLINE</span>
+                                <span class="block text-xs font-mono text-white/60">LATENCY: 12ms</span>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Experience Grid (Aura style) -->
-                    <div class="flex-1 bg-black/10 flex flex-col">
+                    
+                    <!-- CTA Footer (Mobile perspective) -->
+                    <div class="p-8 lg:p-12 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 bg-[#0a0a0a]/80 backdrop-blur-xl border-t border-white/10 flex flex-col lg:flex-row items-center justify-between gap-6">
+                        <div class="flex items-center gap-6">
+                            <a href="https://instagram.com/thiagovitalino" target="_blank" class="text-white/40 hover:text-white transition-colors">INSTAGRAM</a>
+                            <a href="https://linkedin.com/in/thiagovitalino" target="_blank" class="text-white/40 hover:text-white transition-colors">LINKEDIN</a>
+                        </div>
+                        <button onclick="window.location.href='https://wa.me/5522998586180'" class="w-full lg:w-auto px-10 py-4 bg-[#dc1e1e] text-white font-tech text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all">
+                            Agendar Diagnóstico
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
                         <!-- Item 1 -->
                         <div class="group flex-1 flex flex-col lg:flex-row items-start lg:items-center justify-between p-6 lg:px-12 border-b border-white/10 hover:bg-white/5 transition-colors cursor-default gap-4">
                             <div class="flex items-center gap-8 w-full lg:w-auto">

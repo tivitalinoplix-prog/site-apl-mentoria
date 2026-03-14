@@ -144,119 +144,19 @@
             z-index: -1; pointer-events: none;
         }
 
-        /* === HERO SECTION === */
-        .hero-section {
-            background-image: url('assets/hero.bg.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, rgba(10,10,10,0.88) 35%, rgba(10,10,10,0.30) 70%, rgba(10,10,10,0.10) 100%);
-            z-index: 1;
-            pointer-events: none;
-        }
-        .hero-section > * {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Hero Split Title */
-        .hero-split-span {
-            display: block;
-            will-change: transform;
-            position: relative;
-        }
-
-        /* Hero Background Decorative Words */
-        .hero-bg-word {
-            position: absolute;
-            bottom: -30px;
-            font-size: clamp(160px, 26vw, 380px);
-            font-weight: 900;
-            z-index: 1;
-            pointer-events: none;
+        /* === HERO SECTION NEW === */
+        .text-hero {
+            font-size: clamp(60px, 18vw, 240px);
+            line-height: 0.8;
             user-select: none;
-            line-height: 1;
-            letter-spacing: -8px;
         }
-        .hero-bg-word--left {
-            left: -10px;
-            color: rgba(255,255,255,0.03);
+        .text-hero-mobile {
+            font-size: clamp(80px, 22vw, 140px);
+            line-height: 0.8;
+            user-select: none;
         }
-        .hero-bg-word--right {
-            right: -10px;
-            color: rgba(220,30,30,0.05);
-        }
-
-        /* Badge Pulsante */
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 999px;
-            padding: 6px 16px;
-            font-size: 11px;
-            letter-spacing: 2px;
-            color: #aaaaaa;
-            margin-bottom: 28px;
-            cursor: default;
-        }
-        .hero-badge::before {
-            content: '';
-            display: block;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #dc1e1e;
-            flex-shrink: 0;
-            animation: badgePulse 1.8s ease-out infinite;
-        }
-        @keyframes badgePulse {
-            0%   { box-shadow: 0 0 0 0 rgba(220,30,30,0.7); }
-            70%  { box-shadow: 0 0 0 8px rgba(220,30,30,0); }
-            100% { box-shadow: 0 0 0 0 rgba(220,30,30,0); }
-        }
-
-        /* CTA Button */
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden;
-        }
-        .hero-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 40px rgba(220,30,30,0.45);
-        }
-        .btn-arrow {
-            display: inline-block;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .hero-cta:hover .btn-arrow {
-            transform: translateX(4px);
-        }
-
-        /* === HERO SUBTITLE === */
-        .hero-subtitle {
-            font-size: clamp(15px, 1.6vw, 18px);
-            color: #888888;
-            max-width: 520px;
-            line-height: 1.7;
-            margin-top: 24px;
-            margin-bottom: 40px;
-        }
-        .hero-subtitle strong {
-            color: #ffffff;
-            font-weight: 600;
+        .glow-dot {
+            box-shadow: 0 0 8px rgba(220, 30, 30, 0.8);
         }
 
         /* === DIAGNÓSTICO SECTION === */
@@ -517,38 +417,14 @@
             to { transform: translateX(-50%); }
         }
 
-        /* Novo CSS da seção método */
-        .method-separator.is-visible {
-            width: 100%;
-        }
-
-        .reveal-staggered {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-staggered.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-staggered.delay-100 { transition-delay: 0.1s; }
-        .reveal-staggered.delay-200 { transition-delay: 0.2s; }
-        .reveal-staggered.delay-300 { transition-delay: 0.3s; }
-
-        .method-card {
-            perspective: 1000px;
+        /* Porta Dupla Preloader */
+        .door-left, .door-right {
+            transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1);
             will-change: transform;
         }
+        .door-left.open { transform: translateX(-100%); }
+        .door-right.open { transform: translateX(100%); }
 
-        .watermark-number {
-            font-size: clamp(6rem, 12vw, 12rem);
-            transform: translateZ(-20px);
-            background: linear-gradient(180deg, #ff2a2a 0%, transparent 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
     </style>
 </head>
 <body>
@@ -557,388 +433,562 @@
     <div class="glow-red fixed top-[-10%] right-[-5%] animate-pulse-glow"></div>
     <div class="glow-red fixed bottom-[10%] left-[-10%] animate-pulse-glow" style="animation-delay: 1.5s"></div>
 
-    <!-- Preloader -->
-    <div id="preloader" class="fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center transition-all duration-700">
-        <div class="mb-6">
-            <span class="font-tech font-bold text-3xl md:text-5xl text-white tracking-tighter">
-                N<span class="text-white">A</span> VE<span class="relative">i<span class="absolute -top-1 left-0 w-1.5 h-1.5 bg-accent shadow-[0_0_8px_#E8272A]"></span></span>A
-            </span>
+    <!-- Preloader Porta Dupla -->
+    <div id="preloader" class="fixed inset-0 z-[100] flex w-full h-full bg-[#050507]">
+        <div id="door-left" class="door-left relative overflow-hidden flex-1 border-r border-[#1a1a1a] bg-[#050507]">
+            <img src="./assets/Logo.png" class="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-56 md:w-80 max-w-none opacity-90 drop-shadow-[0_0_15px_rgba(255,42,42,0.3)] z-20" alt="Logo NA VEiA">
         </div>
-        <div class="relative w-48 h-[1px] bg-white/5 overflow-hidden">
-            <div id="loader-bar" class="absolute h-full bg-accent transition-all duration-300 shadow-[0_0_10px_#E8272A]" style="width: 0%"></div>
+        <div id="door-right" class="door-right relative overflow-hidden flex-1 border-l border-[#1a1a1a] bg-[#050507]">
+            <img src="./assets/Logo.png" class="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-56 md:w-80 max-w-none opacity-90 drop-shadow-[0_0_15px_rgba(255,42,42,0.3)] z-20" alt="Logo NA VEiA">
         </div>
-        <div id="loader-text" class="mt-4 font-tech text-[10px] tracking-[0.4em] text-secondary/50 uppercase">Syncing_DNA_Pulse</div>
+        <div id="preloader-content" class="absolute inset-x-0 bottom-[15%] flex flex-col items-center justify-center pointer-events-none z-30 transition-opacity duration-300">
+            <span class="font-tech text-[10px] md:text-xs tracking-widest text-[#dc1e1e] uppercase animate-pulse">_System_Boot_Sequence</span>
+        </div>
     </div>
 
     <!-- Parallax Background Element -->
     <div class="parallax-bg"></div>
 
-    <!-- Navbar -->
-    <nav id="navbar" class="fixed z-50 transition-all duration-500 w-full py-6 px-4 md:px-8 top-0 left-0 -translate-y-full bg-transparent">
-        <div class="flex max-w-7xl mx-auto items-center justify-between">
-            
-            <!-- Logo NA VEiA com EKG Line -->
-            <div class="cursor-pointer">
-                <div class="relative">
-                    <svg class="absolute inset-0 w-[120px] h-full overflow-visible" viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M-20,20 L32,20 L36,10 L40,30 L44,20 L140,20" stroke="#E8272A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80" />
-                    </svg>
-                    <span class="font-tech font-bold leading-none tracking-tighter text-xl text-white relative z-20">
-                        N<span class="text-white">A</span> VE<span class="relative">i<span class="absolute -top-1 left-0 w-1.5 h-1.5 bg-accent shadow-[0_0_8px_#E8272A]"></span></span>A
-                    </span>
-                </div>
-            </div>
+    <!-- Global Background / Designer Image (Z-0) -->
+    <div class="fixed inset-0 z-0 flex justify-center items-end pointer-events-none">
+        <img src="assets/hero.bg.jpg" alt="NA VEiA" class="h-[60vh] lg:h-[92vh] w-full object-cover opacity-60 mix-blend-luminosity" style="mask-image: linear-gradient(to bottom, black 50%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%); object-position: center top;">
+    </div>
 
-            <!-- Desktop Menu -->
-            <div class="hidden lg:flex items-center gap-10 glass-panel px-10 py-3.5 rounded-full">
-                <a href="#problem" class="nav-link text-[10px] font-bold uppercase tracking-widest text-secondary hover:text-white">Gargalos</a>
-                <a href="#method" class="nav-link text-[10px] font-bold uppercase tracking-widest text-secondary hover:text-white">Método</a>
-                <a href="#mentor" class="nav-link text-[10px] font-bold uppercase tracking-widest text-secondary hover:text-white">Especialista</a>
-                <a href="#ai-consultant" class="nav-link text-[10px] font-bold uppercase tracking-widest text-accent hover:text-white">Diagnóstico</a>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <a href="https://wa.me/5522998586180?text=Olá%20Vitalino,%20gostaria%20de%20agendar%20um%20diagnóstico%20de%20processos" target="_blank" rel="noreferrer" class="hidden md:flex items-center gap-2 bg-white text-black px-7 py-2.5 rounded-sm font-tech text-[10px] font-black tracking-widest hover:bg-accent hover:text-white transition-all">
-                    AGENDAR_CALL
-                    <iconify-icon icon="solar:arrow-right-up-bold" class="text-xs"></iconify-icon>
-                </a>
-                <button id="menu-btn" class="lg:hidden text-white z-50 relative focus:outline-none p-4 -mr-2 cursor-pointer" aria-label="Toggle menu">
-                    <iconify-icon id="menu-icon" icon="solar:hamburger-menu-linear" width="28" height="28"></iconify-icon>
-                </button>
-            </div>
+    <!-- Navigation (Z-50) -->
+    <nav class="sticky lg:absolute top-0 inset-x-0 z-50 w-full flex justify-between items-center p-6 lg:px-8 lg:py-8 text-sm font-normal tracking-wide bg-[#050507]/80 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border-b lg:border-none border-white/10">
+        
+        <!-- Brand Logo -->
+        <div class="flex-shrink-0">
+            <a href="#" class="block z-50 group">
+                <img src="./assets/Logo.png" alt="NA VEiA Logo" class="h-8 md:h-10 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_10px_rgba(255,42,42,0.1)]">
+            </a>
         </div>
 
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="hidden-menu fixed inset-0 w-full h-[100dvh] bg-background/98 backdrop-blur-2xl z-40 flex flex-col items-center justify-center gap-10 lg:hidden">
-            <a href="#problem" class="mobile-link font-display font-black text-3xl text-white hover:text-accent uppercase tracking-tighter transition-colors">Gargalos</a>
-            <a href="#method" class="mobile-link font-display font-black text-3xl text-white hover:text-accent uppercase tracking-tighter transition-colors">Método</a>
-            <a href="#mentor" class="mobile-link font-display font-black text-3xl text-white hover:text-accent uppercase tracking-tighter transition-colors">Especialista</a>
-            <a href="#ai-consultant" class="mobile-link font-display font-black text-3xl text-accent hover:text-white uppercase tracking-tighter transition-colors">Diagnóstico</a>
-            <a href="https://wa.me/5522998586180?text=Olá%20Vitalino,%20gostaria%20de%20agendar%20um%20diagnóstico%20de%20processos" target="_blank" rel="noreferrer" class="bg-accent px-12 py-5 font-tech text-white text-xs tracking-[0.3em] font-black uppercase mt-4 hover:brightness-110 transition-all">
-                AGENDAR_CALL
-            </a>
+        <!-- Desktop Links -->
+        <div class="hidden lg:flex gap-6 items-center mix-blend-plus-lighter">
+            <a href="#problem" class="hover:text-[#dc1e1e] transition-colors font-tech text-[10px] tracking-widest uppercase">Gargalos</a>
+            <a href="#method" class="hover:text-[#dc1e1e] transition-colors font-tech text-[10px] tracking-widest uppercase">Método</a>
+            <a href="#mentor" class="hover:text-[#dc1e1e] transition-colors font-tech text-[10px] tracking-widest uppercase">Especialista</a>
+        </div>
+
+        <!-- Right Side Actions -->
+        <div class="flex gap-6 items-center">
+            <!-- Available Badge (Visible on Desktop) -->
+            <div class="hidden lg:flex items-center gap-2 border border-white/10 px-3 py-1.5 rounded-full bg-white/5 backdrop-blur-sm">
+                <div class="w-1.5 h-1.5 rounded-full bg-[#dc1e1e] animate-pulse glow-dot"></div>
+                <span class="font-tech text-[8px] tracking-widest text-[#dc1e1e] uppercase">System_Active</span>
+            </div>
+            
+            <!-- Contact (Desktop) -->
+            <a href="#ai-consultant" class="hidden lg:block text-[#dc1e1e] font-tech text-[10px] tracking-widest uppercase hover:text-white transition-colors">Diagnóstico</a>
+
+            <!-- Hamburger Menu (Mobile Only) -->
+            <button class="lg:hidden p-2 -mr-2 text-white hover:opacity-70">
+                <iconify-icon icon="solar:hamburger-menu-linear" width="24" height="24"></iconify-icon>
+            </button>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <header id="hero-section" class="hero-section relative min-h-[90vh] flex flex-col justify-center px-4 md:px-8 pt-20">
-            <!-- Background Decorative Words -->
-            <span class="hero-bg-word hero-bg-word--left font-display">NA</span>
-            <span class="hero-bg-word hero-bg-word--right font-display">VEiA</span>
+    <!-- Main Grid Layout (HERO) -->
+    <div class="relative z-10 w-full min-h-screen grid grid-cols-1 lg:grid-cols-4 pointer-events-none">
+        
+        <!-- MOBILE ONLY: Hero Section (Separated) -->
+        <div class="lg:hidden h-[85vh] col-span-1 flex flex-col justify-end pb-12 px-6 pointer-events-auto">
+             <div class="w-full select-none flex justify-between">
+                 <span class="text-hero-mobile font-display font-[900] tracking-tighter text-white mix-blend-overlay opacity-90 block">NA</span>
+                 <span class="text-hero-mobile font-display font-[900] tracking-tighter text-[#dc1e1e] mix-blend-overlay opacity-90 block text-right">VEiA</span>
+            </div>
+            <div class="mt-8 flex items-center gap-2 text-sm font-medium opacity-80 mix-blend-plus-lighter">
+                <div class="w-1.5 h-1.5 rounded-full bg-[#dc1e1e] animate-pulse"></div>
+                <span class="font-tech text-xs tracking-widest uppercase text-[#dc1e1e]">System_Active</span>
+            </div>
+        </div>
 
-            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-12">
-                <div class="lg:col-span-8">
-                    <div class="reveal">
-                        <div class="hero-badge font-tech uppercase">
-                            <span>System_Active_v2.0</span>
-                        </div>
-                        <h1 class="font-display font-black text-5xl md:text-7xl lg:text-9xl leading-[0.85] tracking-tighter mb-8 uppercase">
-                            <span id="split-na" class="hero-split-span text-white">NA</span>
-                            <span id="split-veia" class="hero-split-span text-[#dc1e1e] text-glow-red">VEIA</span>
-                        </h1>
+        <!-- Column 1 -->
+        <div class="h-full border-r border-white/10 flex flex-col justify-between relative pointer-events-auto min-h-0 lg:min-h-screen">
+            
+            <!-- Desktop Only: Hero Text Part 1 -->
+            <div class="hidden lg:block absolute top-24 lg:top-28 left-0 w-[200%] pointer-events-none select-none z-[60] px-[1vw] overflow-visible">
+                 <span class="text-hero font-display font-[900] tracking-tighter text-white mix-blend-overlay opacity-90 block whitespace-nowrap pl-4 lg:pl-0">NA</span>
+            </div>
+
+            <!-- Content Container (Card Esquerdo) -->
+            <div class="relative lg:absolute lg:top-[40%] left-0 w-full px-6 lg:px-8 z-[70] flex flex-col gap-6 mb-12 lg:mb-0 pt-0 lg:pt-0">
+                <!-- Case Study Card -->
+                <div class="relative w-full aspect-[3/2] bg-[#0A0A0E] overflow-hidden group shadow-[0_20px_40px_rgba(0,0,0,0.8)] border border-white/5 rounded-sm">
+                    <!-- Background Red gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-black to-red-900/10 opacity-80"></div>
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                         <iconify-icon icon="solar:diagram-down-bold" width="56" class="text-white/5 group-hover:scale-110 group-hover:text-white/10 transition-all duration-700"></iconify-icon>
                     </div>
-                    <div class="reveal delay-200">
-                        <p class="hero-subtitle border-l border-white/10 pl-8">
-                            Fusão estratégica entre <strong>Neurociência</strong>, <strong>IA Generativa</strong> e <strong>Ciência da Criatividade</strong> para automatizar o DNA do seu negócio.
-                        </p>
-                    </div>
-                    <div class="reveal delay-300 flex flex-wrap gap-4">
-                        <a href="#problem" class="hero-cta bg-accent text-white px-10 md:px-12 py-5 rounded-sm font-display font-black text-xs uppercase tracking-widest shadow-[0_15px_30px_rgba(232,39,42,0.2)]">
-                            Mapear Gargalos Agora
-                            <span class="btn-arrow" aria-hidden="true">→</span>
-                        </a>
+                    <!-- Badge -->
+                    <div class="absolute top-4 left-4 z-10 flex gap-2">
+                         <span class="px-2 py-1 bg-white/5 backdrop-blur-md border border-white/10 text-[9px] font-tech text-[#dc1e1e] tracking-widest uppercase rounded-sm">_Framework</span>
                     </div>
                 </div>
                 
-                <!-- Technical Specs Display -->
-                <div class="hidden lg:block lg:col-span-4 reveal delay-500">
-                    <div class="glass-panel p-8 rounded-sm border-l-4 border-l-accent">
-                        <div class="space-y-6">
-                            <div class="flex justify-between border-b border-white/5 pb-2">
-                                <span class="text-[10px] font-tech text-secondary uppercase">Core_Module</span>
-                                <span class="text-[10px] font-tech text-white uppercase">LLM_Alignment</span>
-                            </div>
-                            <div class="flex justify-between border-b border-white/5 pb-2">
-                                <span class="text-[10px] font-tech text-secondary uppercase">Precision_Rate</span>
-                                <span class="text-[10px] font-tech text-accent uppercase">99.8%_Secured</span>
-                            </div>
-                            <div class="flex justify-between border-b border-white/5 pb-2">
-                                <span class="text-[10px] font-tech text-secondary uppercase">Latency_Status</span>
-                                <span class="text-[10px] font-tech text-white uppercase">Zero_Hallucination</span>
-                            </div>
-                            <div class="pt-4">
-                                <div class="w-full bg-white/5 h-1 rounded-full overflow-hidden">
-                                    <div class="bg-accent h-full w-2/3 shadow-[0_0_10px_#E8272A]"></div>
-                                </div>
-                                <span class="text-[8px] font-tech text-secondary/50 mt-2 block uppercase tracking-widest">Structural_Automation_Progress</span>
-                            </div>
+                <!-- Description -->
+                <div class="relative flex items-start gap-4 pr-4">
+                    <p class="text-[13px] font-light opacity-90 leading-relaxed text-[#888888] flex-1">
+                        Fusão estratégica entre <span class="text-white font-medium">Neurociência</span>, <span class="text-white font-medium">IA Generativa</span> e <span class="text-white font-medium">Ciência da Criatividade</span> para automatizar processos.
+                    </p>
+                    <a href="#problem" class="shrink-0 w-10 h-10 bg-[#dc1e1e] text-white flex items-center justify-center hover:bg-[#ff2a2a] transition-colors cursor-pointer shadow-[0_0_15px_rgba(220,30,30,0.3)] rounded-full group">
+                        <iconify-icon icon="solar:arrow-right-linear" width="20" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bottom CTA -->
+            <a href="#problem" class="w-full h-24 bg-white/5 backdrop-blur-md flex items-center justify-center text-white cursor-pointer hover:bg-white/10 transition-colors mt-auto border-t border-white/10 z-[70] group relative lg:static pointer-events-auto">
+                <span class="text-[10px] font-tech font-bold uppercase tracking-widest mr-3 text-[#dc1e1e] group-hover:text-white transition-colors">Mapear Gargalos</span>
+                <iconify-icon icon="solar:round-arrow-down-linear" width="18" class="group-hover:translate-y-1 transition-transform text-[#dc1e1e] group-hover:text-white"></iconify-icon>
+            </a>
+        </div>
+
+        <!-- Column 2 (Spacer) -->
+        <div class="hidden lg:block h-full border-r border-white/10 relative"></div>
+
+        <!-- Column 3 (Spacer) -->
+        <div class="hidden lg:block h-full border-r border-white/10 relative"></div>
+
+        <!-- Column 4 -->
+        <div class="h-full relative pointer-events-auto flex flex-col justify-end border-r lg:border-none border-white/10 min-h-0 lg:min-h-screen">
+             
+             <!-- Desktop Only: Hero Text Part 2 -->
+             <div class="hidden lg:block absolute top-10 lg:top-28 right-0 lg:w-[200%] pointer-events-none select-none z-[60] px-[1vw] text-right overflow-visible">
+                 <span class="text-hero font-display font-[900] tracking-tighter text-[#dc1e1e] mix-blend-overlay opacity-90 block pr-4 lg:pr-0">VEiA</span>
+            </div>
+
+            <!-- Stats -->
+            <div class="relative lg:absolute lg:top-[40%] right-0 w-full px-6 lg:px-8 text-right z-30 mt-12 lg:mt-0 mb-8 lg:mb-0">
+                <div class="flex flex-col items-end gap-1">
+                    <span class="text-5xl font-light tracking-tighter flex items-start gap-1 text-white">
+                        <span class="opacity-30 text-3xl font-light mt-1 text-[#dc1e1e]">/</span>
+                        99.8%
+                    </span>
+                    <div class="mt-2 text-[9px] font-tech text-[#dc1e1e] tracking-widest uppercase opacity-90 leading-normal border-t border-white/10 pt-2 ml-auto w-32">
+                        Precision Rate
+                    </div>
+                    <div class="mt-12 flex flex-col items-end gap-1">
+                        <div class="flex items-center gap-2 text-sm font-medium">
+                            <iconify-icon icon="solar:shield-check-bold" width="16" class="text-white/80"></iconify-icon>
+                            <iconify-icon icon="solar:code-circle-bold" width="16" class="text-white/80"></iconify-icon>
                         </div>
+                        <span class="text-[9px] text-[#888888] font-tech uppercase tracking-widest mt-1">Zero_Hallucination</span>
                     </div>
                 </div>
             </div>
-        </header>
 
-        <!-- Panel Open Effect -->
-        <div class="panel-open panel-open--left" id="panel-left"><span class="panel-text font-display">NA</span></div>
-        <div class="panel-open panel-open--right" id="panel-right"><span class="panel-text font-display">VEIA</span></div>
+            <!-- Project Card -->
+            <div class="relative w-full bg-[#0A0A0E] p-8 group h-[340px] flex flex-col justify-between z-30 overflow-hidden border-t border-white/10">
+                <!-- Background Decoration -->
+                <div class="absolute -right-16 -top-16 w-80 h-80 bg-[#dc1e1e] rounded-full blur-[100px] opacity-10 pointer-events-none z-0"></div>
 
-        <hr class="section-divider">
-
-        <!-- Problem Section -->
-        <section id="problem" class="px-4 md:px-8" style="background:#0a0a0a; border-top:1px solid rgba(255,255,255,0.06); padding-top:100px; padding-bottom:100px;">
-            <div class="max-w-7xl mx-auto">
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-start">
-                    <div class="sticky top-24">
-                        <div class="reveal">
-                            <span class="diag-label font-tech uppercase">_Diagnóstico_Operacional</span>
-                            <h2 class="diag-title font-display font-black text-3xl md:text-6xl tracking-tighter mb-8 leading-[0.95] text-white uppercase">
-                                Sua operação está<br>
-                                <span class="dim italic font-light normal-case">Drenando seu crescimento?</span>
-                            </h2>
-                            <p class="diag-paragraph font-light">
-                                Sua empresa investe tempo e dinheiro em operações repetitivas. Documentos são redigidos manualmente, processos geram gargalos e a equipe gasta horas em tarefas que poderiam ser automatizadas com IA.
-                            </p>
-                            <div class="diag-quote">
-                                "O problema não é a sua equipe. O problema é que seus processos não foram desenhados para escalar com inteligência."
-                            </div>
-                        </div>
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-lg font-display font-bold tracking-tight text-white">LLM_Alignment</h3>
+                        <span class="w-2 h-2 rounded-full bg-[#dc1e1e] mt-2 animate-pulse glow-dot"></span>
                     </div>
-                    
-                    <div class="w-full">
-                        <div class="reveal delay-200 ml-auto">
-                            <div class="bg-card border border-white/5 rounded-2xl p-4 md:p-8 relative overflow-hidden shadow-2xl">
-                                <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-yellow-500/5 to-red-900/10 pointer-events-none"></div>
-                                <div class="relative z-10 mb-8">
-                                    <div class="gargalo-header-block">
-                                        <h3 class="font-display font-bold text-xl md:text-2xl text-white mb-1">GARGALOS OPERACIONAIS</h3>
-                                        <p class="text-xs uppercase tracking-widest text-secondary">Diagnóstico de Processos Corporativos</p>
-                                    </div>
-                                </div>
-                                <div id="stages-container" class="relative z-10">
-                                    <!-- Generated by JS -->
-                                </div>
-                                <div id="feedback-area" class="mt-8 text-center relative z-10 min-h-[60px] flex items-center justify-center flex-col scroll-mt-32">
-                                    <span id="feedback-placeholder" class="gargalo-btn font-tech uppercase">
-                                        <iconify-icon icon="solar:cursor-bold" width="14"></iconify-icon>
-                                        Clique no seu gargalo atual
-                                    </span>
-                                    <div id="feedback-content" class="hidden transition-all duration-700 transform max-w-2xl mx-auto animate-fade-in-up">
-                                        <p id="feedback-text" class="text-white font-bold text-lg md:text-3xl mb-4 leading-snug shadow-black drop-shadow-lg"></p>
-                                        <div class="flex items-center justify-center gap-2 text-accent text-xs uppercase tracking-widest mt-2">
-                                            <iconify-icon icon="solar:refresh-circle-linear" class="animate-spin"></iconify-icon>
-                                            Redirecionando para a solução em 5s...
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <p class="text-[9px] text-white/40 font-tech mt-1 tracking-widest uppercase">CORE_MODULE • V2.0</p>
+                </div>
+
+                <div class="relative w-full flex justify-center items-center flex-1 z-0 my-4">
+                    <!-- Tech Progress Bar -->
+                    <div class="w-full max-w-[180px]">
+                        <div class="w-full bg-black h-1 rounded-full overflow-hidden border border-white/10">
+                            <div class="bg-[#dc1e1e] h-full w-2/3 shadow-[0_0_10px_#E8272A]"></div>
+                        </div>
+                        <div class="flex justify-between mt-2">
+                             <span class="text-[8px] font-tech text-white/30 uppercase tracking-widest">Processing</span>
+                             <span class="text-[8px] font-tech text-[#dc1e1e] uppercase tracking-widest">Active</span>
                         </div>
                     </div>
                 </div>
+
+                <div class="flex justify-between items-end pt-4 border-t border-white/10 relative z-10">
+                    <div class="">
+                        <p class="text-[9px] text-white/40 font-tech uppercase tracking-widest block mb-1">Status</p>
+                        <p class="text-[11px] font-bold tracking-tight mt-0.5 text-white uppercase">Operacional</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Problem Section (Aura "Client Stories / Testimonials") -->
+        <section id="problem" class="relative z-20 text-white w-full border-t border-white/10 pointer-events-auto bg-[#0a0a0a]">
+            <div class="grid grid-cols-1 lg:grid-cols-4 w-full">
+                
+                <!-- Left Column: Title & Context -->
+                <div class="col-span-1 lg:col-span-2 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col">
+                    <div class="p-8 lg:p-12 border-b border-white/10 bg-white/[0.02]">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
+                            <iconify-icon icon="solar:magnifer-bug-linear" width="16" class="text-white"></iconify-icon>
+                            <span class="text-xs font-tech tracking-wide text-white/60 uppercase">_Diagnóstico_Operacional</span>
+                        </div>
+                        <h2 class="text-5xl lg:text-7xl font-display font-medium tracking-tighter text-white leading-[0.95] max-w-lg mb-6 uppercase">
+                            Sua operação está <span class="text-[#dc1e1e] italic font-light normal-case">Drenando seu crescimento?</span>
+                        </h2>
+                        <p class="text-xl text-[#888888] font-light max-w-md leading-relaxed">
+                            Sua empresa investe tempo e dinheiro em operações repetitivas. Documentos são redigidos manualmente, processos geram gargalos e a equipe gasta horas em tarefas que poderiam ser automatizadas com IA.
+                        </p>
+                    </div>
+                    
+                    <!-- Quote Feature -->
+                    <div class="flex-1 relative min-h-[300px] overflow-hidden group p-8 lg:p-12 flex flex-col justify-end bg-[#120000]/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-0"></div>
+                        <iconify-icon icon="solar:quote-left-bold" width="60" class="text-[#dc1e1e]/20 absolute top-8 left-8 z-0"></iconify-icon>
+                        
+                        <div class="relative z-10 border-l border-[#dc1e1e] pl-6 py-2">
+                            <p class="text-xl lg:text-2xl text-white/90 font-light leading-snug max-w-md italic">
+                                "O problema não é a sua equipe. O problema é que seus processos não foram desenhados para escalar com inteligência."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Gargalos Vertical Stack -->
+                <div class="col-span-1 lg:col-span-2 flex flex-col h-full bg-white/[0.01]">
+                    
+                    <!-- Feedback Area (Top of Right Column) -->
+                    <div class="p-8 lg:p-10 border-b border-white/10 bg-[#120000] relative overflow-hidden group min-h-[200px] flex flex-col justify-center">
+                        <div class="absolute top-0 right-0 p-8 opacity-20">
+                            <iconify-icon icon="solar:danger-triangle-linear" width="64" class="text-[#dc1e1e]"></iconify-icon>
+                        </div>
+                        
+                        <div id="feedback-area" class="relative z-10 w-full text-left">
+                            <span id="feedback-placeholder" class="inline-flex items-center gap-2 text-white/60 font-tech uppercase text-xs tracking-widest border border-white/10 px-4 py-2 rounded-sm cursor-default bg-white/5 transition-colors">
+                                <iconify-icon icon="solar:cursor-bold" width="14"></iconify-icon>
+                                Selecione um gargalo operacioal abaixo
+                            </span>
+                            <div id="feedback-content" class="hidden transition-all duration-700 transform animate-fade-in-up">
+                                <p id="feedback-text" class="text-white font-medium text-xl lg:text-2xl mb-4 leading-relaxed max-w-lg"></p>
+                                <div class="flex items-center gap-2 text-[#dc1e1e] text-[10px] font-tech uppercase tracking-widest mt-4">
+                                    <iconify-icon icon="solar:refresh-circle-linear" class="animate-spin"></iconify-icon>
+                                    Redirecionando para a solução em 5s...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Stages Container for JS injection -->
+                    <div id="stages-container" class="flex flex-col flex-1">
+                        <!-- JS WILL INJECT CARDS HERE -->
+                    </div>
+                </div>
+                
             </div>
         </section>
 
         <hr class="section-divider">
 
-        <!-- Method Section -->
-        <section id="method" class="px-4 md:px-8 relative overflow-hidden" style="background:#0a0a0a; border-top:1px solid rgba(255,255,255,0.06); padding-top:100px; padding-bottom:100px;">
-            <div class="max-w-[1200px] mx-auto relative z-10 w-full flex flex-col items-start text-left">
-                <!-- Separador Animado -->
-                <div class="method-separator w-0 h-px bg-gradient-to-r from-[#ff2a2a] to-transparent mb-12 transition-all duration-1000 ease-out"></div>
-                
-                <div class="method-header mb-20 reveal">
-                    <span class="diag-label font-tech uppercase mb-4 block">_THE_FRAMEWORK</span>
-                    <h2 class="font-display font-black text-4xl md:text-6xl tracking-tighter text-[#f0f0f0] mb-4">O MÉTODO NA VEiA</h2>
-                    <p class="text-[#888888] text-lg md:text-xl font-light">3 pilares fundamentais. Precisão técnica absoluta.</p>
+        <!-- Method Section (Aura "Precision Engineering") -->
+        <section id="method" class="relative z-20 w-full border-t border-white/10 pointer-events-auto bg-[#050507]">
+            <div class="grid grid-cols-1 lg:grid-cols-4 w-full">
+                <!-- Intro Text (Spans full width top) -->
+                <div class="col-span-1 lg:col-span-4 p-8 lg:p-12 border-b border-white/10 flex flex-col lg:flex-row justify-between items-end gap-8">
+                     <div class="max-w-4xl pt-12">
+                        <span class="diag-label font-tech uppercase mb-4 block text-[#dc1e1e] tracking-widest text-[10px]">_THE_FRAMEWORK</span>
+                        <h2 class="text-4xl lg:text-7xl font-display font-black tracking-tighter text-white mb-6 leading-[0.9] uppercase">
+                            O MÉTODO <span class="text-neutral-500">NA VEiA</span>
+                        </h2>
+                        <p class="text-[#888888] text-lg max-w-xl leading-relaxed font-light">
+                            3 pilares fundamentais. Precisão técnica absoluta para escalar seu negócio com estruturação automotizada e IA.
+                        </p>
+                     </div>
                 </div>
 
-                <div class="relative w-full pl-6 md:pl-12 lg:pl-16">
-                    <!-- Linha de progresso vertical -->
-                    <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-white/5">
-                        <div class="method-progress-line absolute top-0 left-0 w-full bg-[#ff2a2a] transition-all duration-300 ease-out" style="height: 0%;"></div>
+                <!-- Card 1: Product Design -->
+                <div class="group relative col-span-1 border-r border-b border-white/10 p-8 h-[500px] flex flex-col justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="relative w-full h-48 border border-white/10 bg-black/30 flex flex-col items-center justify-center overflow-hidden rounded-sm">
+                        <!-- Abstract Flat Rectangles -->
+                        <div class="w-24 h-32 bg-[#120000] border border-[#dc1e1e]/20 absolute top-8 left-8 z-10 group-hover:bg-[#1a0000] transition-colors"></div>
+                        <div class="w-24 h-32 bg-black border border-white/10 absolute top-12 left-16 z-20 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"></div>
+                        <div class="absolute bottom-4 right-4 text-[9px] font-tech text-[#dc1e1e] uppercase tracking-widest">[01_OTIMIZAÇÃO]</div>
                     </div>
-
-                    <div class="flex flex-col gap-12 md:gap-16">
-                        <!-- Card 1 -->
-                        <div class="method-card-wrapper reveal-staggered delay-100">
-                            <div class="method-card relative p-8 md:p-10 border border-[rgba(255,42,42,0.15)] rounded-[2px] transition-all overflow-hidden" style="background: rgba(255,255,255,0.03); transform-style: preserve-3d; transition: transform 0.5s ease-out;">
-                                <div class="watermark-number absolute top-4 right-4 text-[#ff2a2a] opacity-12 font-display font-black leading-none pointer-events-none select-none z-0">01</div>
-                                
-                                <div class="relative z-10" style="transform: translateZ(30px);">
-                                    <span class="inline-block px-3 py-1 border border-[#ff2a2a] text-[#ff2a2a] text-[10px] md:text-xs font-tech uppercase tracking-widest mb-6">[01_OTIMIZAÇÃO]</span>
-                                    <h3 class="font-display font-bold text-2xl md:text-3xl text-[#f0f0f0] mb-4">Otimização Inteligente de Processos</h3>
-                                    <p class="text-[#888888] text-sm md:text-base leading-relaxed max-w-3xl">Mapeamento estratégico de gargalos e estruturação de fluxos de trabalho autônomos. Utilizo arquitetura de IA avançada para reestruturar rotinas de back-office, reduzindo horas de trabalho manual e aumentando a produtividade através de sistemas lógicos de alta performance.</p>
-                                </div>
-                            </div>
+                    <div>
+                        <div class="w-8 h-8 flex items-center justify-center bg-[#dc1e1e] text-white mb-6 shadow-[0_0_15px_rgba(220,30,30,0.3)] rounded-sm">
+                            <iconify-icon icon="solar:git-network-linear" width="16"></iconify-icon>
                         </div>
-
-                        <!-- Card 2 -->
-                        <div class="method-card-wrapper reveal-staggered delay-200">
-                            <div class="method-card relative p-8 md:p-10 border border-[rgba(255,42,42,0.15)] rounded-[2px] transition-all overflow-hidden" style="background: rgba(255,255,255,0.03); transform-style: preserve-3d; transition: transform 0.5s ease-out;">
-                                <div class="watermark-number absolute top-4 right-4 text-[#ff2a2a] opacity-12 font-display font-black leading-none pointer-events-none select-none z-0">02</div>
-                                
-                                <div class="relative z-10" style="transform: translateZ(30px);">
-                                    <span class="inline-block px-3 py-1 border border-[#ff2a2a] text-[#ff2a2a] text-[10px] md:text-xs font-tech uppercase tracking-widest mb-6">[02_AUTOMAÇÃO]</span>
-                                    <h3 class="font-display font-bold text-2xl md:text-3xl text-[#f0f0f0] mb-4">Automação e Elaboração de Documentos</h3>
-                                    <p class="text-[#888888] text-sm md:text-base leading-relaxed max-w-3xl">Transformo a sua documentação bruta em bases de dados estruturadas. Através de Engenharia de Prompt e parametrização de LLMs, crio sistemas capazes de redigir documentos técnicos, relatórios e propostas em escala, mantendo 100% de fidelidade ao tom de voz e às regras da sua empresa.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="method-card-wrapper reveal-staggered delay-300">
-                            <div class="method-card relative p-8 md:p-10 border border-[rgba(255,42,42,0.15)] rounded-[2px] transition-all overflow-hidden" style="background: rgba(255,255,255,0.03); transform-style: preserve-3d; transition: transform 0.5s ease-out;">
-                                <div class="watermark-number absolute top-4 right-4 text-[#ff2a2a] opacity-12 font-display font-black leading-none pointer-events-none select-none z-0">03</div>
-                                
-                                <div class="relative z-10" style="transform: translateZ(30px);">
-                                    <span class="inline-block px-3 py-1 border border-[#ff2a2a] text-[#ff2a2a] text-[10px] md:text-xs font-tech uppercase tracking-widest mb-6">[03_AUDITORIA]</span>
-                                    <h3 class="font-display font-bold text-2xl md:text-3xl text-[#f0f0f0] mb-4">Auditoria de IA e Alinhamento Lógico</h3>
-                                    <p class="text-[#888888] text-sm md:text-base leading-relaxed max-w-3xl">A automação corporativa exige segurança absoluta. Aplico técnicas de Reinforcement Learning from Human Feedback (RLHF) e LLM Alignment para auditar lógicas complexas. Garanto que a IA entregue documentos impecáveis, sem alucinações técnicas, perfeitamente alinhados com a realidade do seu negócio.</p>
-                                </div>
-                            </div>
-                        </div>
+                        <h3 class="text-xl font-display font-bold tracking-tight mb-2 text-white">Otimização Inteligente</h3>
+                        <p class="text-sm text-[#888888] leading-relaxed font-light">
+                            Mapeamento estratégico de gargalos e estruturação de fluxos de trabalho autônomos de back-office.
+                        </p>
                     </div>
                 </div>
-            </section>
 
-        <hr class="section-divider">
+                <!-- Card 2: Development -->
+                <div class="group relative col-span-1 border-r border-b border-white/10 p-8 h-[500px] flex flex-col justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="relative w-full h-48 border border-white/10 bg-[#0A0A0E] flex flex-col p-4 overflow-hidden rounded-sm">
+                        <div class="flex gap-1.5 mb-3 opacity-50">
+                            <div class="w-2 h-2 bg-[#dc1e1e]/50 rounded-full"></div>
+                            <div class="w-2 h-2 bg-[#dc1e1e]/50 rounded-full"></div>
+                        </div>
+                        <div class="font-tech text-[9px] text-[#888888] space-y-1 leading-tight tracking-wider uppercase">
+                            <p class=""><span class="text-[#dc1e1e]">generate</span> <span class="text-white">document</span>() {</p>
+                            <p class="pl-2 text-white/30">// Processing LLM</p>
+                            <p class="pl-2"><span class="text-[#dc1e1e]">return</span> <span class="text-accent/80">Success</span></p>
+                            <p class="">}</p>
+                            <div class="w-3 h-4 bg-[#dc1e1e] animate-pulse glow-dot mt-1"></div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="w-8 h-8 flex items-center justify-center bg-[#dc1e1e] text-white mb-6 shadow-[0_0_15px_rgba(220,30,30,0.3)] rounded-sm">
+                            <iconify-icon icon="solar:document-add-linear" width="16"></iconify-icon>
+                        </div>
+                        <h3 class="text-xl font-display font-bold tracking-tight mb-2 text-white">Automação de Docs</h3>
+                        <p class="text-sm text-[#888888] leading-relaxed font-light">
+                            Engenharia de Prompt para redigir documentos técnicos e relatórios perfeitamente alinhados em escala.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Design Systems -->
+                <div class="group relative col-span-1 border-r border-b border-white/10 p-8 h-[500px] flex flex-col justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="relative w-full h-48 border border-white/10 bg-black/30 flex items-center justify-center p-4 rounded-sm">
+                        <div class="grid grid-cols-2 gap-2 w-24">
+                            <div class="h-10 border border-white/10 bg-white/5 group-hover:bg-[#dc1e1e]/20 transition-colors"></div>
+                            <div class="h-10 border border-white/10 bg-white/5 group-hover:bg-[#dc1e1e]/20 transition-colors delay-75"></div>
+                            <div class="h-10 border border-white/10 bg-white/5 group-hover:bg-[#dc1e1e]/20 transition-colors delay-100"></div>
+                            <div class="h-10 bg-[#dc1e1e] text-white flex items-center justify-center shadow-[0_0_10px_rgba(220,30,30,0.5)]">
+                                <iconify-icon icon="solar:shield-check-bold" width="16" class=""></iconify-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="w-8 h-8 flex items-center justify-center bg-[#dc1e1e] text-white mb-6 shadow-[0_0_15px_rgba(220,30,30,0.3)] rounded-sm">
+                            <iconify-icon icon="solar:shield-keyhole-linear" width="16" class=""></iconify-icon>
+                        </div>
+                        <h3 class="text-xl font-display font-bold tracking-tight mb-2 text-white">Auditoria de IA</h3>
+                        <p class="text-sm text-[#888888] leading-relaxed font-light">
+                            Segurança absoluta com RLHF e LLM Alignment auditado pelo humano para eliminar alucinações.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Precision Guarantee -->
+                 <div class="group relative col-span-1 border-b border-white/10 p-8 h-[500px] flex flex-col justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="relative w-full h-48 border border-[#dc1e1e]/20 bg-[#120000]/30 flex items-center justify-center p-4 overflow-hidden rounded-sm">
+                         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,30,30,0.15)_0,transparent_70%)]"></div>
+                         <span class="text-5xl font-tech font-bold text-[#dc1e1e] z-10 glow-dot pulse-glow">100%</span>
+                    </div>
+                    <div class="">
+                        <div class="w-8 h-8 flex items-center justify-center bg-[#0d0d11] border border-white/10 text-white mb-6 rounded-sm">
+                            <iconify-icon icon="solar:target-bold" width="16"></iconify-icon>
+                        </div>
+                        <h3 class="text-xl font-display font-bold tracking-tight mb-2 text-white">Precisão Garantida</h3>
+                        <p class="text-sm text-[#888888] leading-relaxed font-light">
+                            Nossos fluxos revisam a si mesmos (Self-Correction), garantindo 100% de confiabilidade técnica nas entregas automáticas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Mentor Section -->
-        <section id="mentor" class="px-4 md:px-8" style="background:#0f0000; border-top:1px solid rgba(220,30,30,0.15); padding-top:100px; padding-bottom:100px;">
-            <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
-                    <div class="md:col-span-5">
-                        <div class="reveal">
-                            <div class="relative aspect-[3/4] rounded-sm overflow-hidden shadow-[0_0_40px_rgba(232,39,42,0.1)]">
-                                <img id="mentor-img" src="./assets/mentor.jpg" class="w-full h-full object-cover object-top transition-all duration-1000 grayscale md:hover:grayscale-0" alt="Vitalino">
-                                <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-6">
-                                    <div class="glass-panel inline-flex items-center gap-2 px-3 py-1.5 rounded-sm">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
-                                        <span class="font-tech text-[8px] text-accent tracking-widest uppercase">Auth_Key Verified</span>
-                                    </div>
-                                </div>
+        <section id="mentor" class="relative z-20 bg-[#120000] text-white w-full border-t border-b border-white/10 pointer-events-auto font-sans">
+            <div class="grid grid-cols-1 lg:grid-cols-4 w-full">
+                
+                <!-- Header (Full Width) -->
+                <div class="col-span-1 lg:col-span-4 p-8 lg:p-12 border-b border-white/10 flex flex-col items-start gap-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dc1e1e]/10 border border-[#dc1e1e]/30 backdrop-blur-md shadow-sm">
+                        <iconify-icon icon="solar:star-fall-minimalistic-2-bold" width="16" class="text-[#dc1e1e]"></iconify-icon>
+                        <span class="text-xs font-medium tracking-wide text-[#dc1e1e] uppercase">O Especialista</span>
+                    </div>
+                    <h2 class="text-5xl lg:text-8xl font-black font-display tracking-tighter text-white leading-[0.9] uppercase">
+                        Thiago<br><span class="text-[#dc1e1e]">Vitalino.</span>
+                    </h2>
+                    <p class="text-white/70 text-xl lg:text-2xl max-w-2xl font-light leading-relaxed">
+                        Sou Especialista em Avaliação de Inteligência Artificial e Engenharia de Prompt.
+                    </p>
+                </div>
+
+                <!-- Left Column: Profile Card -->
+                <div class="col-span-1 lg:col-span-1 lg:border-b-0 flex flex-col min-h-[600px] bg-[#0a0a0a] h-full border-white/10 lg:border-r border-b pt-8 pr-8 pb-8 pl-8 justify-between">
+                    <div class="flex flex-col gap-8">
+                        <!-- Avatar -->
+                        <div class="aspect-[4/5] overflow-hidden group bg-black/20 w-full border-white/10 border rounded-sm relative shadow-2xl">
+                            <img id="mentor-img" src="./assets/mentor.jpg" alt="Thiago Vitalino" class="group-hover:grayscale-0 transition-all duration-700 w-full h-full object-cover grayscale object-top">
+                            <div class="bg-gradient-to-t from-[#0a0a0a]/80 via-[#0a0a0a]/20 to-transparent opacity-80 absolute top-0 right-0 bottom-0 left-0"></div>
+                            
+                            <!-- Availability Badge -->
+                            <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                                 <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+                                     <div class="w-1.5 h-1.5 rounded-full bg-[#dc1e1e] shadow-[0_0_8px_rgba(220,30,30,0.5)]"></div>
+                                     <span class="text-[10px] font-medium uppercase tracking-wider text-white">Auth_Key Verified</span>
+                                 </div>
                             </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-medium tracking-tight mb-2 text-white">Quem sou eu</h3>
+                            <p class="text-sm text-[#888888] leading-relaxed font-light">
+                                Especialista em Engenharia de Conhecimento.
+                            </p>
+                        </div>
+
+                        <!-- Socials -->
+                        <div class="flex items-center gap-3">
+                            <a href="https://instagram.com/thiagovitalino" target="_blank" class="w-12 h-12 flex items-center justify-center border border-white/10 rounded-full hover:bg-white hover:text-[#dc1e1e] transition-all hover:scale-110 group cursor-pointer">
+                                <iconify-icon icon="simple-icons:instagram" width="18"></iconify-icon>
+                            </a>
+                            <a href="https://linkedin.com/in/thiagovitalino" target="_blank" class="w-12 h-12 flex items-center justify-center border border-white/10 rounded-full hover:bg-white hover:text-[#dc1e1e] transition-all hover:scale-110 group cursor-pointer">
+                                <iconify-icon icon="simple-icons:linkedin" width="18"></iconify-icon>
+                            </a>
                         </div>
                     </div>
+
+                    <button onclick="window.location.href='https://wa.me/5522998586180?text=Olá%20Vitalino,%20gostaria%20de%20agendar%20um%20diagnóstico'" class="group mt-12 w-full py-4 px-6 bg-white text-[#120000] font-semibold text-sm tracking-wide rounded-sm flex items-center justify-between hover:bg-gray-200 transition-all shadow-xl">
+                        Fale comigo
+                        <iconify-icon icon="solar:arrow-right-up-linear" width="18" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform stroke-[2]"></iconify-icon>
+                    </button>
+                </div>
+
+                <!-- Right Column: Details -->
+                <div class="col-span-1 lg:col-span-3 flex flex-col h-full bg-[#0a0a0a]">
                     
-                    <div class="md:col-span-7">
-                        <div class="reveal">
-                            <div class="mb-8">
-                                <span class="font-tech text-accent text-[10px] font-bold tracking-[0.3em] uppercase block mb-4">_The_Specialist</span>
-                                <h2 class="font-display font-black text-4xl md:text-7xl tracking-tighter text-white mb-6 uppercase">
-                                    Thiago<br><span class="text-secondary font-light normal-case italic text-3xl md:text-5xl">Vitalino</span>
-                                </h2>
-                                <p class="text-secondary text-base md:text-lg font-light leading-relaxed mb-8 max-w-lg">
-                                    Sou Especialista em Avaliação de Inteligência Artificial e Engenharia de Prompt. Minha especialidade é a <span class="text-white font-medium">Engenharia de Conhecimento</span>: capturo a inteligência do seu negócio e a transformo em fluxos automatizados.
-                                </p>
+                    <!-- Bio Section -->
+                    <div class="p-8 lg:p-12 border-b border-white/10 bg-white/[0.02] min-h-[300px] flex flex-col justify-center">
+                        <p class="text-2xl lg:text-3xl font-normal leading-snug text-white/90 max-w-3xl italic">
+                            "Minha especialidade é capturar a inteligência do seu negócio e transformá-la em fluxos automatizados. Combinando Neurociência com o desenvolvimento de fluxos recursivos e alinhamento de LLMs, garanto que a IA atue a seu favor com precisão cirúrgica."
+                        </p>
+                        
+                        <!-- Tags -->
+                        <div class="flex flex-wrap gap-2 mt-12">
+                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">Neurociências</span>
+                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">IA Generativa</span>
+                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">Engenharia de Prompt</span>
+                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">LLM Alignment</span>
+                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">RLHF</span>
+                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">MBA IA</span>
+                            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-md text-xs font-mono uppercase tracking-wider text-[#888888] hover:text-white hover:bg-[#dc1e1e]/20 hover:border-[#dc1e1e]/50 transition-colors cursor-default">Psicologia Cognitiva</span>
+                        </div>
+                    </div>
+
+                    <!-- Experience Grid (Aura style) -->
+                    <div class="flex-1 bg-black/10 flex flex-col">
+                        <!-- Item 1 -->
+                        <div class="group flex-1 flex flex-col lg:flex-row items-start lg:items-center justify-between p-6 lg:px-12 border-b border-white/10 hover:bg-white/5 transition-colors cursor-default gap-4">
+                            <div class="flex items-center gap-8 w-full lg:w-auto">
+                                <div class="flex items-center gap-3 w-32">
+                                     <iconify-icon icon="solar:dna-bold" width="16" class="text-white/40 group-hover:text-[#dc1e1e] transition-colors"></iconify-icon>
+                                     <span class="text-sm font-mono text-white/40 group-hover:text-white/60 transition-colors">Pilar</span>
+                                </div>
+                                <h4 class="text-lg font-medium tracking-tight text-white">Base Científica Aplicada</h4>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4 border-t border-border pt-8 mb-8">
-                            <div class="reveal delay-100 glass-panel p-4 rounded-sm card-hover">
-                                <span class="font-tech text-accent text-[9px] tracking-widest block mb-1">_NEUROCIÊNCIAS</span>
-                                <span class="text-[10px] text-secondary font-light">Base Científica Aplicada</span>
-                            </div>
-                            <div class="reveal delay-200 glass-panel p-4 rounded-sm card-hover">
-                                <span class="font-tech text-accent text-[9px] tracking-widest block mb-1">_CRIATIVIDADE</span>
-                                <span class="text-[10px] text-secondary font-light">Ciência da Inovação</span>
-                            </div>
-                            <div class="reveal delay-300 glass-panel p-4 rounded-sm card-hover">
-                                <span class="font-tech text-accent text-[9px] tracking-widest block mb-1">_MBA_IA</span>
-                                <span class="text-[10px] text-secondary font-light">Gestão de IA Aplicada</span>
-                            </div>
-                            <div class="reveal delay-400 glass-panel p-4 rounded-sm card-hover">
-                                <span class="font-tech text-accent text-[9px] tracking-widest block mb-1">_PSICOLOGIA</span>
-                                <span class="text-[10px] text-secondary font-light">Processos Cognitivos</span>
+                        <!-- Item 2 -->
+                        <div class="group flex-1 flex flex-col lg:flex-row items-start lg:items-center justify-between p-6 lg:px-12 border-b border-white/10 hover:bg-white/5 transition-colors cursor-default gap-4">
+                            <div class="flex items-center gap-8 w-full lg:w-auto">
+                                <div class="flex items-center gap-3 w-32">
+                                     <iconify-icon icon="solar:lightbulb-bolt-bold" width="16" class="text-white/40 group-hover:text-[#dc1e1e] transition-colors"></iconify-icon>
+                                     <span class="text-sm font-mono text-white/40 group-hover:text-white/60 transition-colors">Pilar</span>
+                                </div>
+                                <h4 class="text-lg font-medium tracking-tight text-white">Ciência da Inovação</h4>
                             </div>
                         </div>
 
-                        </div>
-
-                        <div class="credentials-ticker-wrap">
-                            <div class="credentials-ticker">
-                                <span>_NEUROCIÊNCIAS</span>
-                                <span>_IA GENERATIVA</span>
-                                <span>_ENGENHARIA DE PROMPT</span>
-                                <span>_LLM ALIGNMENT</span>
-                                <span>_RLHF</span>
-                                <span>_CIÊNCIA DA CRIATIVIDADE</span>
-                                <span>_PSICOLOGIA COGNITIVA</span>
-                                <span>_MBA IA</span>
-                                <!-- duplicar os mesmos spans para loop infinito -->
-                                <span>_NEUROCIÊNCIAS</span>
-                                <span>_IA GENERATIVA</span>
-                                <span>_ENGENHARIA DE PROMPT</span>
-                                <span>_LLM ALIGNMENT</span>
-                                <span>_RLHF</span>
-                                <span>_CIÊNCIA DA CRIATIVIDADE</span>
-                                <span>_PSICOLOGIA COGNITIVA</span>
-                                <span>_MBA IA</span>
+                        <!-- Item 3 -->
+                        <div class="group flex-1 flex flex-col lg:flex-row items-start lg:items-center justify-between p-6 lg:px-12 border-b border-white/10 hover:bg-white/5 transition-colors cursor-default gap-4">
+                            <div class="flex items-center gap-8 w-full lg:w-auto">
+                                <div class="flex items-center gap-3 w-32">
+                                     <iconify-icon icon="solar:shield-check-bold" width="16" class="text-white/40 group-hover:text-[#dc1e1e] transition-colors"></iconify-icon>
+                                     <span class="text-sm font-mono text-white/40 group-hover:text-white/60 transition-colors">Pilar</span>
+                                </div>
+                                <h4 class="text-lg font-medium tracking-tight text-white">Gestão de IA Aplicada</h4>
                             </div>
                         </div>
 
-                        <div class="reveal delay-300 border-l-2 border-accent pl-6 py-2">
-                            <p class="text-white/80 text-sm italic font-light">"Combinando Neurociência com o desenvolvimento de fluxos recursivos (Self-Correction) e alinhamento de LLMs, garanto que a IA atue a seu favor com precisão cirúrgica."</p>
+                        <!-- Item 4 -->
+                        <div class="group flex-1 flex flex-col lg:flex-row items-start lg:items-center justify-between p-6 lg:px-12 hover:bg-white/5 transition-colors cursor-default gap-4">
+                            <div class="flex items-center gap-8 w-full lg:w-auto">
+                                <div class="flex items-center gap-3 w-32">
+                                     <iconify-icon icon="solar:brain-bold" width="16" class="text-white/40 group-hover:text-[#dc1e1e] transition-colors"></iconify-icon>
+                                     <span class="text-sm font-mono text-white/40 group-hover:text-white/60 transition-colors">Pilar</span>
+                                </div>
+                                <h4 class="text-lg font-medium tracking-tight text-white">Processos Cognitivos</h4>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </section>
 
-        <hr class="section-divider">
-
         <!-- AI Diagnostic Section -->
-        <section id="ai-consultant" class="px-4 md:px-8 relative overflow-hidden" style="background:#0a0a0a; border-top:1px solid rgba(255,255,255,0.06); padding-top:100px; padding-bottom:100px;">
-            <div class="max-w-4xl mx-auto relative z-10">
-                <div class="text-center mb-12">
-                    <div class="reveal">
-                        <span class="font-tech text-accent text-[10px] font-bold tracking-[0.3em] uppercase block mb-6">_AI_Diagnostic</span>
-                        <h2 class="font-display font-black text-4xl md:text-6xl tracking-tighter mb-6 text-white uppercase">
-                            VITALINO <span class="font-tech text-accent text-2xl md:text-4xl">AI_DIAGNOSTIC</span>
-                        </h2>
-                        <p class="text-secondary text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-light">
-                            A inovação chegou à gestão corporativa. Treinada com o nosso <span class="text-white font-medium">framework exclusivo e metodologias avançadas de LLM Alignment</span>, ela oferece uma amostra cirúrgica do raciocínio estratégico que aplicamos nos projetos.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="reveal delay-100">
-                    <div class="glass-panel rounded-sm p-6 md:p-8 border-t-2 border-t-accent">
-                        <div class="flex flex-col gap-4">
-                            <label for="user-challenge" class="text-sm font-tech text-accent tracking-widest uppercase">Input_Challenge_Data:</label>
-                            <textarea 
-                                id="user-challenge" rows="3" 
-                                class="w-full bg-background border border-white/5 rounded-sm p-4 text-base text-white placeholder-zinc-600 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/30 transition-all resize-none font-light" 
-                                placeholder="Ex: Minha equipe gasta horas redigindo relatórios que poderiam ser automatizados..."></textarea>
-                            
-                            <button id="ai-btn" class="w-full bg-accent text-white font-tech font-bold py-4 rounded-sm text-[11px] tracking-widest uppercase hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 group shadow-[0_10px_20px_rgba(232,39,42,0.15)]">
-                                <span>EXECUTE_ANALYSIS_STREAMS</span>
-                                <iconify-icon icon="solar:stars-minimalistic-bold" class="group-hover:scale-110 transition-transform"></iconify-icon>
-                            </button>
+        <section id="ai-consultant" class="relative z-20 w-full border-b border-white/10 pointer-events-auto font-sans">
+            <style>
+                textarea:focus + .input-line { width: 100%; opacity: 1; }
+            </style>
+            <div class="w-full">
+                <!-- Content Area -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 border-t border-white/10 relative z-20" style="background-color: #120000;">
+                    
+                    <!-- Left: Headline & Context -->
+                    <div class="col-span-1 lg:col-span-5 lg:p-16 lg:border-b-0 lg:border-r flex flex-col border-white/10 border-b pt-8 pr-8 pb-8 pl-8 justify-between">
+                        <div class="reveal">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dc1e1e]/10 border border-[#dc1e1e]/30 mb-8 backdrop-blur-sm">
+                                <iconify-icon icon="solar:chat-round-dots-bold" width="16" class="text-[#dc1e1e]"></iconify-icon>
+                                <span class="text-xs font-medium tracking-wide text-[#dc1e1e] uppercase">AI Diagnostic</span>
+                            </div>
+                            <h2 class="text-4xl lg:text-6xl font-black font-display tracking-tighter text-white leading-[0.95] mb-6 uppercase">
+                                Vitalino <span class="text-[#dc1e1e] font-tech text-2xl lg:text-4xl">AI_DIAGNOSTIC</span>
+                            </h2>
+                            <p class="text-lg text-[#888888] font-light leading-relaxed max-w-md">
+                                A inovação chegou à gestão corporativa. Treinada com o nosso <span class="text-white font-medium">framework exclusivo e metodologias avançadas de LLM Alignment</span>, ela oferece uma amostra cirúrgica do raciocínio estratégico que aplicamos nos projetos.
+                            </p>
                         </div>
+                        
+                        <div class="hidden lg:block mt-12 reveal delay-100">
+                            <div class="flex items-center gap-2 text-sm text-[#dc1e1e] mb-2 font-tech tracking-widest uppercase">
+                                <iconify-icon icon="solar:shield-check-bold" width="16"></iconify-icon>
+                                <span>100% Secure & Private</span>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div id="ai-response-container" class="hidden mt-8 pt-8 border-t border-white/5 animate-fade-in-up">
-                            <div class="flex gap-4 mb-6">
-                                <div class="w-10 h-10 rounded-sm overflow-hidden shrink-0 border border-accent/30 bg-accent/10 flex items-center justify-center">
-                                    <iconify-icon icon="solar:cpu-bolt-bold" class="text-accent text-lg"></iconify-icon>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="flex items-center gap-2 mb-2">
-                                        <span class="text-sm font-tech text-accent tracking-widest">Vitalino_AI</span>
-                                        <span class="text-[8px] bg-accent/10 px-2 py-0.5 rounded-sm text-accent font-tech tracking-widest">SME_MODE</span>
-                                    </div>
-                                    <div id="ai-text-content" class="text-sm text-secondary leading-relaxed ai-content"></div>
-                                </div>
+                    <!-- Right: Form -->
+                    <div class="col-span-1 lg:col-span-7 p-8 lg:p-16 flex flex-col justify-center" style="background-color: #0a0a0a;">
+                        <div class="reveal delay-200 w-full max-w-2xl mx-auto space-y-12">
+                            <!-- Challenge Input -->
+                            <div class="relative group input-group">
+                                <label class="block uppercase text-xs font-medium text-white/50 tracking-widest mb-4 font-tech">Input_Challenge_Data:</label>
+                                <textarea id="user-challenge" rows="4" class="w-full bg-transparent border-b border-white/10 py-3 text-lg text-white placeholder-white/20 focus:outline-none focus:border-white/0 transition-colors resize-none font-light" placeholder="Ex: Minha equipe gasta horas redigindo relatórios que poderiam ser automatizados..."></textarea>
+                                <div class="absolute bottom-0 left-0 h-[1px] bg-[#dc1e1e] w-0 input-line transition-all duration-500 opacity-0"></div>
                             </div>
 
-                            <div class="border-l-2 border-accent pl-4 py-2 bg-accent/5 rounded-r-sm">
-                                <strong class="text-white block mb-2 text-xs font-tech tracking-widest">⚡ Single_Query_Limit_Reached</strong>
-                                <p class="mb-4 text-xs text-secondary font-light">O framework NA VEiA é denso e requer acompanhamento. Para estratégias ilimitadas, agende um diagnóstico.</p>
-                                <a href="https://wa.me/5522998586180?text=Olá%20Vitalino,%20gostaria%20de%20agendar%20um%20diagnóstico%20de%20processos" target="_blank" rel="noreferrer" class="inline-block bg-accent text-white text-[10px] font-tech font-bold px-4 py-2 rounded-sm tracking-widest hover:brightness-110 transition-colors">
-                                    AGENDAR_DIAGNÓSTICO
-                                </a>
+                            <div class="flex items-center justify-end pt-4">
+                                <button id="ai-btn" type="button" class="group relative px-8 py-4 bg-white text-[#120000] text-sm font-semibold tracking-wide rounded-sm overflow-hidden transition-all hover:bg-[#dc1e1e] hover:text-white hover:shadow-lg hover:shadow-[#dc1e1e]/20 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <span class="relative z-10 flex items-center gap-2 font-tech uppercase tracking-widest mt-0.5">
+                                        Execute_Analysis
+                                        <iconify-icon icon="solar:stars-minimalistic-bold" width="16" class="group-hover:rotate-12 transition-transform"></iconify-icon>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <!-- AI Response Area -->
+                            <div id="ai-response-container" class="hidden mt-8 pt-8 border-t border-white/10 animate-fade-in-up">
+                                <div class="flex gap-4 mb-6">
+                                    <div class="w-10 h-10 rounded-sm overflow-hidden shrink-0 border border-[#dc1e1e]/30 bg-[#dc1e1e]/10 flex items-center justify-center">
+                                        <iconify-icon icon="solar:cpu-bolt-bold" class="text-[#dc1e1e] text-lg"></iconify-icon>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="text-sm font-tech text-[#dc1e1e] tracking-widest uppercase mt-0.5">Vitalino_AI</span>
+                                            <span class="text-[8px] bg-[#dc1e1e]/10 px-2 py-0.5 rounded-sm text-[#dc1e1e] font-tech tracking-widest uppercase mt-0.5">SME_MODE</span>
+                                        </div>
+                                        <div id="ai-text-content" class="text-sm text-[#888888] leading-relaxed ai-content font-light"></div>
+                                    </div>
+                                </div>
+
+                                <div class="border-l-2 border-[#dc1e1e] pl-4 py-3 bg-[#dc1e1e]/5 rounded-r-sm mt-6">
+                                    <strong class="text-white block mb-2 text-xs font-tech tracking-widest uppercase">⚡ Single_Query_Limit_Reached</strong>
+                                    <p class="mb-4 text-xs text-[#888888] font-light">O framework NA VEiA é denso e requer acompanhamento. Para estratégias ilimitadas, agende um diagnóstico.</p>
+                                    <a href="https://wa.me/5522998586180?text=Olá%20Vitalino,%20gostaria%20de%20agendar%20um%20diagnóstico%20de%20processos" target="_blank" rel="noreferrer" class="inline-block bg-[#dc1e1e] text-white text-[10px] font-tech font-bold px-4 py-2 rounded-sm tracking-widest uppercase hover:brightness-110 transition-colors">
+                                        Agendar Diagnóstico
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -947,63 +997,69 @@
         </section>
 
         <!-- Social Proof -->
-        <hr class="section-divider">
+        <hr class="section-divider hidden">
 
-        <section class="px-4 md:px-8" style="background:#120000; border-top:1px solid rgba(220,30,30,0.2); border-bottom:1px solid rgba(220,30,30,0.2); padding-top:100px; padding-bottom:100px;">
-            <div class="max-w-7xl mx-auto">
-                <div class="mb-16">
-                    <div class="reveal">
-                        <span class="font-tech text-accent text-[10px] font-bold tracking-[0.3em] uppercase block mb-4">_Client_Feedback</span>
-                        <h2 class="font-display font-black text-3xl md:text-5xl tracking-tighter text-white uppercase">Resultados Reais</h2>
+        <section class="py-24 md:py-32 border-t border-white/10 relative z-20" style="background-color: #0a0a0a;">
+            <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+                <div class="mb-16 md:mb-24">
+                    <div class="reveal max-w-2xl">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
+                            <iconify-icon icon="solar:star-fall-bold" width="16" class="text-[#dc1e1e]"></iconify-icon>
+                            <span class="text-xs font-medium tracking-wide text-white/70 uppercase">Client Stories</span>
+                        </div>
+                        <h2 class="text-4xl lg:text-5xl font-black font-display tracking-tighter text-white uppercase leading-tight">Resultados Reais</h2>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="reveal delay-100 h-full">
-                        <article class="glass-panel p-8 rounded-sm card-hover h-full flex flex-col">
-                            <div class="flex gap-1 mb-6 text-accent">
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
+                        <article class="p-8 md:p-10 border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 rounded-sm h-full flex flex-col group relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#dc1e1e] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="flex gap-1 mb-8 text-[#dc1e1e]">
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
                             </div>
-                            <p class="text-gray-200 text-base font-light italic mb-6 leading-relaxed">"A automação de documentos reduziu em 70% o tempo da minha equipe jurídica. O Vitalino entregou precisão absoluta."</p>
-                            <div class="flex items-center gap-3 mt-auto">
-                                <div class="w-8 h-8 bg-accent/10 rounded-sm flex items-center justify-center text-[10px] font-tech text-accent">RC</div>
-                                <div><span class="block text-sm text-white font-medium">Ricardo Costa</span><span class="text-[10px] text-secondary font-tech tracking-widest">DIR_OPERAÇÕES</span></div>
+                            <p class="text-white/70 text-lg font-light italic mb-8 leading-relaxed">"A automação de documentos reduziu em 70% o tempo da minha equipe jurídica. O Vitalino entregou precisão absoluta."</p>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <div class="w-10 h-10 bg-[#120000] border border-white/10 rounded-full flex items-center justify-center text-xs font-tech text-[#dc1e1e]">RC</div>
+                                <div><span class="block text-white font-medium">Ricardo Costa</span><span class="text-xs text-[#888888] font-tech tracking-widest uppercase mt-0.5 block">Dir. Operações</span></div>
                             </div>
                         </article>
                     </div>
                     <div class="reveal delay-200 h-full">
-                        <article class="glass-panel p-8 rounded-sm card-hover h-full flex flex-col">
-                            <div class="flex gap-1 mb-6 text-accent">
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
+                        <article class="p-8 md:p-10 border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 rounded-sm h-full flex flex-col group relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#dc1e1e] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="flex gap-1 mb-8 text-[#dc1e1e]">
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
                             </div>
-                            <p class="text-gray-200 text-base font-light italic mb-6 leading-relaxed">"Nossos processos internos eram um caos. Com a IA aplicada pelo Vitalino, ganhamos previsibilidade e escala em 30 dias."</p>
-                            <div class="flex items-center gap-3 mt-auto">
-                                <div class="w-8 h-8 bg-accent/10 rounded-sm flex items-center justify-center text-[10px] font-tech text-accent">FL</div>
-                                <div><span class="block text-sm text-white font-medium">Fernanda Lima</span><span class="text-[10px] text-secondary font-tech tracking-widest">CEO_STARTUP</span></div>
+                            <p class="text-white/70 text-lg font-light italic mb-8 leading-relaxed">"Nossos processos internos eram um caos. Com a IA aplicada pelo Vitalino, ganhamos previsibilidade e escala em 30 dias."</p>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <div class="w-10 h-10 bg-[#120000] border border-white/10 rounded-full flex items-center justify-center text-xs font-tech text-[#dc1e1e]">FL</div>
+                                <div><span class="block text-white font-medium">Fernanda Lima</span><span class="text-xs text-[#888888] font-tech tracking-widest uppercase mt-0.5 block">CEO Startup</span></div>
                             </div>
                         </article>
                     </div>
                     <div class="reveal delay-300 h-full">
-                        <article class="glass-panel p-8 rounded-sm card-hover h-full flex flex-col">
-                            <div class="flex gap-1 mb-6 text-accent">
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
-                                <iconify-icon icon="solar:star-bold" width="14"></iconify-icon>
+                        <article class="p-8 md:p-10 border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 rounded-sm h-full flex flex-col group relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#dc1e1e] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="flex gap-1 mb-8 text-[#dc1e1e]">
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
+                                <iconify-icon icon="solar:star-bold" width="16"></iconify-icon>
                             </div>
-                            <p class="text-gray-200 text-base font-light italic mb-6 leading-relaxed">"O alinhamento de IA que o Vitalino implementou eliminou 100% das alucinações nos nossos relatórios automáticos. Impressionante."</p>
-                            <div class="flex items-center gap-3 mt-auto">
-                                <div class="w-8 h-8 bg-accent/10 rounded-sm flex items-center justify-center text-[10px] font-tech text-accent">MA</div>
-                                <div><span class="block text-sm text-white font-medium">Marcelo Andrade</span><span class="text-[10px] text-secondary font-tech tracking-widest">GER_TI</span></div>
+                            <p class="text-white/70 text-lg font-light italic mb-8 leading-relaxed">"O alinhamento de IA que o Vitalino implementou eliminou 100% das alucinações nos nossos relatórios automáticos. Impressionante."</p>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <div class="w-10 h-10 bg-[#120000] border border-white/10 rounded-full flex items-center justify-center text-xs font-tech text-[#dc1e1e]">MA</div>
+                                <div><span class="block text-white font-medium">Marcelo Andrade</span><span class="text-xs text-[#888888] font-tech tracking-widest uppercase mt-0.5 block">Gerente TI</span></div>
                             </div>
                         </article>
                     </div>
@@ -1012,51 +1068,97 @@
         </section>
 
         <!-- CTA Final -->
-        <hr class="section-divider">
-
-        <section class="px-4 md:px-8 relative overflow-hidden" style="background:#0a0a0a; border-top:1px solid rgba(255,255,255,0.06); padding-top:100px; padding-bottom:100px;">
-            <div class="glow-red absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw]"></div>
-            <div class="max-w-4xl mx-auto relative z-10 text-center">
+        <section class="py-24 md:py-32 relative z-20 overflow-hidden border-t border-b border-white/10 flex items-center justify-center text-center" style="background-color: #120000;">
+            <!-- Glow background subtle -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#dc1e1e]/5 rounded-full blur-[120px] pointer-events-none"></div>
+            
+            <div class="max-w-4xl mx-auto px-6 relative z-10 w-full">
                 <div class="reveal">
-                    <span class="font-tech text-accent text-[10px] font-bold tracking-[0.3em] uppercase block mb-8">_Final_Transmission</span>
-                    <h2 class="font-display font-black text-5xl md:text-8xl tracking-tighter leading-[0.85] text-white uppercase mb-8">
+                    <h2 class="text-5xl md:text-8xl font-black font-display tracking-tighter leading-[0.9] text-white uppercase mb-8">
                         ELEVE O PULSO<br>
-                        <span class="text-accent text-glow-red italic">TECNOLÓGICO.</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#dc1e1e] to-[#ff4d4d] italic pr-4">TECNOLÓGICO.</span>
                     </h2>
-                    <p class="text-secondary text-lg md:text-xl font-light max-w-lg mx-auto mb-12">
+                    <p class="text-[#888888] text-lg md:text-xl font-light max-w-xl mx-auto mb-12">
                         Pronto para trazer automação estruturada e segurança absoluta para a sua operação?
                     </p>
                 </div>
-                <div class="reveal delay-200">
+                <div class="reveal delay-200 flex flex-col items-center justify-center">
                     <a href="https://wa.me/5522998586180?text=Olá%20Vitalino,%20gostaria%20de%20agendar%20um%20diagnóstico%20de%20processos" target="_blank" rel="noreferrer" 
-                       class="inline-flex items-center gap-3 bg-accent text-white px-12 md:px-16 py-6 rounded-sm font-display font-black text-sm md:text-base uppercase tracking-widest hover:brightness-110 transition-all shadow-[0_20px_40px_rgba(232,39,42,0.25)] group">
-                        Falar com o Especialista
-                        <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+                       class="inline-flex items-center gap-4 bg-white text-[#120000] px-10 py-5 hover:bg-[#dc1e1e] hover:text-white transition-all duration-300 rounded-sm font-semibold tracking-wide uppercase shadow-lg shadow-[#dc1e1e]/0 hover:shadow-[#dc1e1e]/20 group">
+                        <span class="font-tech tracking-widest">Falar com o Especialista</span>
+                        <iconify-icon icon="solar:arrow-right-up-linear" width="20" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></iconify-icon>
                     </a>
-                    <p class="text-[10px] font-tech text-secondary/40 mt-6 tracking-[0.3em] uppercase">Direct_WhatsApp_Channel</p>
+                    <div class="flex items-center gap-2 mt-6 text-[#888888]/60 text-xs font-tech tracking-widest uppercase">
+                        <iconify-icon icon="solar:lock-password-bold" width="14"></iconify-icon>
+                        <span>Direct_WhatsApp_Channel</span>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-border bg-background py-16">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
-                <div>
-                    <span class="font-tech font-bold text-lg text-white tracking-tighter block mb-2">
-                        NA VE<span class="text-accent">i</span>A
-                    </span>
-                    <p class="text-secondary text-xs font-light max-w-xs">Engenharia de Conhecimento e Automação de Processos com IA Aplicada.</p>
+    <footer class="pt-24 pb-12 relative z-20" style="background-color: #0a0a0a;">
+        <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-24">
+                <!-- Brand -->
+                <div class="lg:col-span-1">
+                    <a href="#" class="inline-block mb-6 group">
+                        <img src="./assets/Logo.png" alt="NA VEiA Logo" class="h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_15px_rgba(255,42,42,0.2)]">
+                    </a>
+                    <p class="text-[#888888] font-light leading-relaxed mb-8 max-w-[280px]">
+                        Engenharia de Conhecimento e Automação de Processos com IA Aplicada.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://instagram.com/o.vitalino" target="_blank" rel="noreferrer" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white/5 hover:border-white/30 transition-all">
+                            <iconify-icon icon="mdi:instagram" width="18"></iconify-icon>
+                        </a>
+                        <a href="https://wa.me/5522998586180" target="_blank" rel="noreferrer" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-[#dc1e1e] hover:border-[#dc1e1e] transition-all">
+                            <iconify-icon icon="mdi:whatsapp" width="18"></iconify-icon>
+                        </a>
+                        <a href="https://linkedin.com/in/o-vitalino" target="_blank" rel="noreferrer" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-[#0077b5] hover:border-[#0077b5] transition-all">
+                            <iconify-icon icon="mdi:linkedin" width="18"></iconify-icon>
+                        </a>
+                    </div>
                 </div>
-                <div class="flex gap-3">
-                    <a href="#" target="_blank" rel="noreferrer" class="w-9 h-9 rounded-sm bg-surface border border-border flex items-center justify-center hover:bg-accent hover:text-white hover:border-accent transition-all text-secondary"><iconify-icon icon="mdi:instagram" width="16"></iconify-icon></a>
-                    <a href="https://wa.me/5522998586180" target="_blank" rel="noreferrer" class="w-9 h-9 rounded-sm bg-surface border border-border flex items-center justify-center hover:bg-accent hover:text-white hover:border-accent transition-all text-secondary"><iconify-icon icon="mdi:whatsapp" width="16"></iconify-icon></a>
-                    <a href="#" target="_blank" rel="noreferrer" class="w-9 h-9 rounded-sm bg-surface border border-border flex items-center justify-center hover:bg-accent hover:text-white hover:border-accent transition-all text-secondary"><iconify-icon icon="mdi:linkedin" width="16"></iconify-icon></a>
+
+                <!-- Links 1 -->
+                <div class="lg:col-span-1">
+                    <h3 class="text-white font-tech tracking-widest uppercase text-xs font-semibold mb-6">Navegação</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#services" class="text-[#888888] hover:text-[#dc1e1e] transition-colors font-light text-sm">Problema / Solução</a></li>
+                        <li><a href="#method" class="text-[#888888] hover:text-[#dc1e1e] transition-colors font-light text-sm">O Método NA VEiA</a></li>
+                        <li><a href="#especialista" class="text-[#888888] hover:text-[#dc1e1e] transition-colors font-light text-sm">O Especialista</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Links 2 -->
+                <div class="lg:col-span-1">
+                    <h3 class="text-white font-tech tracking-widest uppercase text-xs font-semibold mb-6">Legal</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-[#888888] hover:text-white transition-colors font-light text-sm">Termos de Uso</a></li>
+                        <li><a href="#" class="text-[#888888] hover:text-white transition-colors font-light text-sm">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Links 3 -->
+                <div class="lg:col-span-1">
+                    <h3 class="text-white font-tech tracking-widest uppercase text-xs font-semibold mb-6">Contato</h3>
+                    <ul class="space-y-4">
+                        <li><a href="mailto:contato@vitalino.com.br" class="text-[#888888] hover:text-[#dc1e1e] transition-colors font-light text-sm">contato@vitalino.com.br</a></li>
+                        <li><span class="text-[#888888] font-light text-sm">Brasil</span></li>
+                    </ul>
                 </div>
             </div>
-            <div class="border-t border-border pt-8 flex justify-center">
-                <p class="text-[9px] font-tech uppercase tracking-[0.3em] text-zinc-600">© 2025 Vitalino | NA VEiA — All_Rights_Reserved</p>
+
+            <!-- Copyright Bar -->
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[#888888] text-[11px] font-tech uppercase tracking-widest">© 2025 Vitalino | NA VEiA. All_Rights_Reserved.</p>
+                <div class="flex items-center gap-2 text-xs text-[#888888] font-light">
+                    <span>Engineered with</span>
+                    <iconify-icon icon="solar:cpu-bolt-bold" class="text-[#dc1e1e]"></iconify-icon>
+                    <span>by NA VEiA</span>
+                </div>
             </div>
         </div>
     </footer>
@@ -1095,18 +1197,28 @@
                 width += Math.floor(Math.random() * 5) + 2;
                 if (width > 100) width = 100;
                 
-                loaderBar.style.width = width + '%';
-                loaderText.innerText = width + '%';
+                if(loaderBar) loaderBar.style.width = width + '%';
+                if(loaderText) loaderText.innerText = width + '%';
 
                 if (width === 100) {
                     clearInterval(interval);
                     setTimeout(() => {
-                        preloader.style.opacity = '0';
-                        preloader.style.transform = 'scale(1.05)';
-                        preloader.style.pointerEvents = 'none';
+                        const doorLeft = document.getElementById('door-left');
+                        const doorRight = document.getElementById('door-right');
+                        const preloaderContent = document.getElementById('preloader-content');
+                        
+                        if(preloaderContent) preloaderContent.style.opacity = '0';
+                        
+                        if(doorLeft) doorLeft.classList.add('open');
+                        if(doorRight) doorRight.classList.add('open');
+
                         setTimeout(() => {
-                            navbar.classList.remove('-translate-y-full');
-                        }, 600);
+                            if(preloader) {
+                                preloader.style.opacity = '0';
+                                preloader.style.pointerEvents = 'none';
+                            }
+                            if(navbar) navbar.classList.remove('-translate-y-full');
+                        }, 1200);
                     }, 500);
                 }
             }, 30);
@@ -1165,19 +1277,26 @@
             
             stagesData.forEach((stage, index) => {
                 const div = document.createElement('div');
-                div.className = `stage-card gargalo-card reveal-item${stage.isTerminal ? ' gargalo-terminal' : ''}`;
+                div.className = `stage-card group flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 lg:px-10 border-b border-white/10 hover:bg-white/[0.02] transition-colors cursor-pointer gap-4 reveal-item`;
                 div.style.transitionDelay = `${index * 80}ms`;
 
-                const terminalExtra = stage.isTerminal ? `<span class="critico-badge font-tech uppercase">CRÍTICO</span>` : '';
+                const terminalExtra = stage.isTerminal ? `<span class="text-[9px] font-tech text-[#dc1e1e] tracking-widest uppercase px-2 py-1 border border-[#dc1e1e]/20 bg-[#dc1e1e]/10 rounded-sm">CRÍTICO</span>` : '';
 
                 div.innerHTML = `
-                    <div class="gargalo-icon ${stage.color}">
-                        <iconify-icon icon="${stage.icon}" width="18"></iconify-icon>
+                    <div class="flex items-center gap-6 w-full sm:w-auto">
+                        <div class="icon-container w-10 h-10 flex items-center justify-center rounded-sm bg-black border border-white/10 transition-colors shadow-[0_0_15px_transparent]">
+                            <iconify-icon icon="${stage.icon}" width="20" class="icon-el text-white/40 transition-colors"></iconify-icon>
+                        </div>
+                        <div>
+                            <h4 class="title-el text-lg font-medium tracking-tight text-white/70 transition-colors">${stage.title}</h4>
+                            <p class="desc-el text-xs text-white/40 transition-colors mt-1 max-w-[280px]">${stage.desc}</p>
+                        </div>
                     </div>
-                    <div>
-                        <strong class="gargalo-title block text-sm font-bold mb-0.5 ${stage.isTerminal ? '' : 'text-white'}">${stage.title}</strong>
-                        <span class="text-[11px] ${stage.isTerminal ? 'text-red-300/80' : 'text-zinc-400'}">${stage.desc}</span>
+                    <div class="flex items-center justify-between w-full sm:w-auto sm:flex-1 sm:justify-end gap-6">
                         ${terminalExtra}
+                        <div class="action-btn w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 group-hover:bg-white group-hover:text-black transition-all">
+                            <iconify-icon icon="solar:arrow-right-up-linear" width="16"></iconify-icon>
+                        </div>
                     </div>
                 `;
 
@@ -1186,28 +1305,37 @@
             });
 
             function handleStageSelect(index, element, isTerminal) {
+                // Reset all cards to initial state
                 document.querySelectorAll('.stage-card').forEach(card => {
-                    card.className = card.className.replace('active-stage ring-2 ring-white bg-white/10 opacity-100 ring-red-500 bg-red-900/60 border-red-500', '');
-                    card.classList.add('bg-surface/50', 'border-white/5', 'opacity-50');
-                    if (card.querySelector('strong').innerText.includes('ESTAGNA')) {
-                         card.classList.add('bg-red-950/30', 'border-red-900/30');
-                    }
+                    card.className = 'stage-card group flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 lg:px-10 border-b border-white/10 hover:bg-white/[0.02] transition-colors cursor-pointer gap-4';
+                    
+                    const iconContainer = card.querySelector('.icon-container');
+                    if(iconContainer) iconContainer.className = 'icon-container w-10 h-10 flex items-center justify-center rounded-sm bg-black border border-white/10 transition-colors shadow-[0_0_15px_transparent] group-hover:border-white/20';
+                    
+                    const iconEl = card.querySelector('.icon-el');
+                    if(iconEl) iconEl.className = 'icon-el text-white/40 transition-colors group-hover:text-white';
+                    
+                    const titleEl = card.querySelector('.title-el');
+                    if(titleEl) titleEl.className = 'title-el text-lg font-medium tracking-tight text-white/70 transition-colors group-hover:text-white';
+
+                    const actionBtn = card.querySelector('.action-btn');
+                    if(actionBtn) actionBtn.className = 'action-btn w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 group-hover:bg-white group-hover:text-black transition-all';
                 });
 
-                element.classList.remove('bg-surface/50', 'border-white/5', 'opacity-50', 'bg-red-950/30', 'border-red-900/30');
-                if (isTerminal) {
-                    element.classList.add('active-stage', 'bg-red-900/60', 'border', 'border-red-500', 'ring-2', 'ring-red-500', 'opacity-100');
-                } else {
-                    element.classList.add('active-stage', 'ring-2', 'ring-white', 'bg-white/10', 'opacity-100');
-                }
+                // Set Active State on selected card
+                element.className = 'stage-card group flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 lg:px-10 border-b border-white/10 hover:bg-[#120000] cursor-pointer gap-4 bg-[#120000]';
                 
-                document.querySelectorAll('.stage-card .rounded-full').forEach(iconBg => {
-                    iconBg.classList.remove('bg-opacity-100', 'text-black');
-                    iconBg.classList.add('bg-opacity-10');
-                });
-                const activeIcon = element.querySelector('.rounded-full');
-                activeIcon.classList.remove('bg-opacity-10');
-                activeIcon.classList.add('bg-opacity-100', 'text-black');
+                const iconContainer = element.querySelector('.icon-container');
+                if(iconContainer) iconContainer.className = 'icon-container w-10 h-10 flex items-center justify-center rounded-sm bg-[#dc1e1e] border border-[#dc1e1e] transition-colors shadow-[0_0_15px_rgba(220,30,30,0.3)]';
+                
+                const iconEl = element.querySelector('.icon-el');
+                if(iconEl) iconEl.className = 'icon-el text-white transition-colors';
+                
+                const titleEl = element.querySelector('.title-el');
+                if(titleEl) titleEl.className = 'title-el text-lg font-medium tracking-tight text-white transition-colors';
+
+                const actionBtn = element.querySelector('.action-btn');
+                if(actionBtn) actionBtn.className = 'action-btn w-8 h-8 rounded-full border border-transparent bg-[#dc1e1e] flex items-center justify-center text-white transition-all';
 
                 const placeholder = document.getElementById('feedback-placeholder');
                 const content = document.getElementById('feedback-content');

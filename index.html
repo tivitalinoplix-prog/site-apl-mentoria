@@ -151,6 +151,20 @@
             z-index: -1; pointer-events: none;
         }
 
+        /* Ícone Pulsar Effect */
+        iconify-icon { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .group:hover iconify-icon, iconify-icon:hover { 
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 8px rgba(232, 39, 42, 0.6));
+            animation: iconPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0% { transform: scale(1.2); }
+            50% { transform: scale(1.35); }
+            100% { transform: scale(1.2); }
+        }
+
         /* === HERO SECTION NEW === */
         .text-hero {
             font-size: clamp(60px, 18vw, 240px);
@@ -442,14 +456,14 @@
 
     <!-- Preloader Porta Dupla -->
     <div id="preloader" class="fixed inset-0 z-[100] flex w-full h-full bg-[#050507]">
-        <div id="door-left" class="door-left relative overflow-hidden flex-1 border-r border-[#1a1a1a] bg-[#050507]">
-            <img src="./assets/Logo.png" class="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-56 md:w-80 max-w-none opacity-90 drop-shadow-[0_0_15px_rgba(255,42,42,0.3)] z-20" alt="Logo NA VEiA">
+        <div id="door-left" class="door-left relative overflow-hidden flex-1 border-r border-[#1a1a1a] bg-[#050507] flex items-center justify-end">
+            <span class="text-[clamp(80px,25vw,350px)] font-display font-black tracking-tighter text-white opacity-90 pr-4 select-none drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]">NA</span>
         </div>
-        <div id="door-right" class="door-right relative overflow-hidden flex-1 border-l border-[#1a1a1a] bg-[#050507]">
-            <img src="./assets/Logo.png" class="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-56 md:w-80 max-w-none opacity-90 drop-shadow-[0_0_15px_rgba(255,42,42,0.3)] z-20" alt="Logo NA VEiA">
+        <div id="door-right" class="door-right relative overflow-hidden flex-1 border-l border-[#1a1a1a] bg-[#050507] flex items-center justify-start">
+            <span class="text-[clamp(80px,25vw,350px)] font-display font-black tracking-tighter text-[#dc1e1e] opacity-90 pl-4 select-none drop-shadow-[0_0_30px_rgba(232,39,42,0.3)]">VEiA</span>
         </div>
-        <div id="preloader-content" class="absolute inset-x-0 bottom-[15%] flex flex-col items-center justify-center pointer-events-none z-30 transition-opacity duration-300">
-            <span class="font-tech text-[10px] md:text-xs tracking-widest text-[#dc1e1e] uppercase animate-pulse">_System_Boot_Sequence</span>
+        <div id="preloader-content" class="absolute inset-x-0 bottom-[10%] flex flex-col items-center justify-center pointer-events-none z-30 transition-opacity duration-300">
+            <span class="font-tech text-xs tracking-[0.3em] text-[#dc1e1e] uppercase animate-pulse">_Initialize_Connection</span>
         </div>
     </div>
 
@@ -467,7 +481,7 @@
         <!-- Brand Logo -->
         <div class="flex-shrink-0">
             <a href="#" class="block z-50 group">
-                <img src="./assets/Logo.png" alt="NA VEiA Logo" class="h-8 md:h-10 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_10px_rgba(255,42,42,0.1)]">
+                <img src="./assets/Logo.png" alt="NA VEiA Logo" class="h-12 md:h-16 w-auto object-contain group-hover:scale-110 transition-transform drop-shadow-[0_0_15px_rgba(255,42,42,0.2)]">
             </a>
         </div>
 
@@ -497,127 +511,36 @@
     </nav>
 
     <!-- Main Grid Layout (HERO) -->
-    <div class="relative z-10 w-full min-h-screen grid grid-cols-1 lg:grid-cols-4 pointer-events-none">
+    <div id="hero-section" class="relative z-10 w-full min-h-screen grid grid-cols-1 lg:grid-cols-2 pointer-events-none overflow-hidden">
         
-        <!-- MOBILE ONLY: Hero Section (Separated) -->
-        <div class="lg:hidden h-[85vh] col-span-1 flex flex-col justify-end pb-12 px-6 pointer-events-auto">
-             <div class="w-full select-none flex justify-between">
-                 <span class="text-hero-mobile font-display font-[900] tracking-tighter text-white mix-blend-overlay opacity-90 block">NA</span>
-                 <span class="text-hero-mobile font-display font-[900] tracking-tighter text-[#dc1e1e] mix-blend-overlay opacity-90 block text-right">VEiA</span>
+        <!-- Left Part: NA -->
+        <div class="h-full flex flex-col justify-center items-center lg:items-end lg:pr-12 pointer-events-auto">
+            <div id="split-na" class="transition-transform duration-500 will-change-transform">
+                <span class="text-hero font-display font-black tracking-tighter text-white mix-blend-overlay opacity-90 block select-none">NA</span>
             </div>
-            <div class="mt-8 flex items-center gap-2 text-sm font-medium opacity-80 mix-blend-plus-lighter">
+            
+            <!-- Mobile Badge -->
+            <div class="lg:hidden mt-8 flex items-center gap-2 text-sm font-medium opacity-80 mix-blend-plus-lighter">
                 <div class="w-1.5 h-1.5 rounded-full bg-[#dc1e1e] animate-pulse"></div>
                 <span class="font-tech text-xs tracking-widest uppercase text-[#dc1e1e]">System_Active</span>
             </div>
         </div>
 
-        <!-- Column 1 -->
-        <div class="h-full border-r border-white/10 flex flex-col justify-between relative pointer-events-auto min-h-0 lg:min-h-screen">
-            
-            <!-- Desktop Only: Hero Text Part 1 -->
-            <div class="hidden lg:block absolute top-24 lg:top-28 left-0 w-[200%] pointer-events-none select-none z-[60] px-[1vw] overflow-visible">
-                 <span class="text-hero font-display font-[900] tracking-tighter text-white mix-blend-overlay opacity-90 block whitespace-nowrap pl-4 lg:pl-0">NA</span>
+        <!-- Right Part: VEiA -->
+        <div class="h-full flex flex-col justify-center items-center lg:items-start lg:pl-12 pointer-events-auto">
+            <div id="split-veia" class="transition-transform duration-500 will-change-transform">
+                <span class="text-hero font-display font-black tracking-tighter text-[#dc1e1e] mix-blend-overlay opacity-90 block select-none">VEiA</span>
             </div>
 
-            <!-- Content Container (Card Esquerdo) -->
-            <div class="relative lg:absolute lg:top-[40%] left-0 w-full px-6 lg:px-8 z-[70] flex flex-col gap-6 mb-12 lg:mb-0 pt-0 lg:pt-0">
-                <!-- Case Study Card -->
-                <div class="relative w-full aspect-[3/2] bg-[#0A0A0E] overflow-hidden group shadow-[0_20px_40px_rgba(0,0,0,0.8)] border border-white/5 rounded-sm">
-                    <!-- Background Red gradient -->
-                    <div class="absolute inset-0 bg-gradient-to-br from-black to-red-900/10 opacity-80"></div>
-                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                         <iconify-icon icon="solar:diagram-down-bold" width="56" class="text-white/5 group-hover:scale-110 group-hover:text-white/10 transition-all duration-700"></iconify-icon>
-                    </div>
-                    <!-- Badge -->
-                    <div class="absolute top-4 left-4 z-10 flex gap-2">
-                         <span class="px-2 py-1 bg-white/5 backdrop-blur-md border border-white/10 text-[9px] font-tech text-[#dc1e1e] tracking-widest uppercase rounded-sm">_Framework</span>
-                    </div>
-                </div>
-                
-                <!-- Description -->
-                <div class="relative flex items-start gap-4 pr-4">
-                    <p class="text-[13px] font-light opacity-90 leading-relaxed text-[#888888] flex-1">
-                        Fusão estratégica entre <span class="text-white font-medium">Neurociência</span>, <span class="text-white font-medium">IA Generativa</span> e <span class="text-white font-medium">Ciência da Criatividade</span> para automatizar processos.
-                    </p>
-                    <a href="#problem" class="shrink-0 w-10 h-10 bg-[#dc1e1e] text-white flex items-center justify-center hover:bg-[#ff2a2a] transition-colors cursor-pointer shadow-[0_0_15px_rgba(220,30,30,0.3)] rounded-full group">
-                        <iconify-icon icon="solar:arrow-right-linear" width="20" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Bottom CTA -->
-            <a href="#problem" class="w-full h-24 bg-white/5 backdrop-blur-md flex items-center justify-center text-white cursor-pointer hover:bg-white/10 transition-colors mt-auto border-t border-white/10 z-[70] group relative lg:static pointer-events-auto">
-                <span class="text-[10px] font-tech font-bold uppercase tracking-widest mr-3 text-[#dc1e1e] group-hover:text-white transition-colors">Mapear Gargalos</span>
-                <iconify-icon icon="solar:round-arrow-down-linear" width="18" class="group-hover:translate-y-1 transition-transform text-[#dc1e1e] group-hover:text-white"></iconify-icon>
-            </a>
-        </div>
-
-        <!-- Column 2 (Spacer) -->
-        <div class="hidden lg:block h-full border-r border-white/10 relative"></div>
-
-        <!-- Column 3 (Spacer) -->
-        <div class="hidden lg:block h-full border-r border-white/10 relative"></div>
-
-        <!-- Column 4 -->
-        <div class="h-full relative pointer-events-auto flex flex-col justify-end border-r lg:border-none border-white/10 min-h-0 lg:min-h-screen">
-             
-             <!-- Desktop Only: Hero Text Part 2 -->
-             <div class="hidden lg:block absolute top-10 lg:top-28 right-0 lg:w-[200%] pointer-events-none select-none z-[60] px-[1vw] text-right overflow-visible">
-                 <span class="text-hero font-display font-[900] tracking-tighter text-[#dc1e1e] mix-blend-overlay opacity-90 block pr-4 lg:pr-0">VEiA</span>
-            </div>
-
-            <!-- Stats -->
-            <div class="relative lg:absolute lg:top-[40%] right-0 w-full px-6 lg:px-8 text-right z-30 mt-12 lg:mt-0 mb-8 lg:mb-0">
-                <div class="flex flex-col items-end gap-1">
-                    <span class="text-5xl font-light tracking-tighter flex items-start gap-1 text-white">
-                        <span class="opacity-30 text-3xl font-light mt-1 text-[#dc1e1e]">/</span>
-                        99.8%
-                    </span>
-                    <div class="mt-2 text-[9px] font-tech text-[#dc1e1e] tracking-widest uppercase opacity-90 leading-normal border-t border-white/10 pt-2 ml-auto w-32">
-                        Precision Rate
-                    </div>
-                    <div class="mt-12 flex flex-col items-end gap-1">
-                        <div class="flex items-center gap-2 text-sm font-medium">
-                            <iconify-icon icon="solar:shield-check-bold" width="16" class="text-white/80"></iconify-icon>
-                            <iconify-icon icon="solar:code-circle-bold" width="16" class="text-white/80"></iconify-icon>
-                        </div>
-                        <span class="text-[9px] text-[#888888] font-tech uppercase tracking-widest mt-1">Zero_Hallucination</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project Card -->
-            <div class="relative w-full bg-[#0A0A0E] p-8 group h-[340px] flex flex-col justify-between z-30 overflow-hidden border-t border-white/10">
-                <!-- Background Decoration -->
-                <div class="absolute -right-16 -top-16 w-80 h-80 bg-[#dc1e1e] rounded-full blur-[100px] opacity-10 pointer-events-none z-0"></div>
-
-                <div class="relative z-10">
-                    <div class="flex justify-between items-start">
-                        <h3 class="text-lg font-display font-bold tracking-tight text-white">LLM_Alignment</h3>
-                        <span class="w-2 h-2 rounded-full bg-[#dc1e1e] mt-2 animate-pulse glow-dot"></span>
-                    </div>
-                    <p class="text-[9px] text-white/40 font-tech mt-1 tracking-widest uppercase">CORE_MODULE • V2.0</p>
-                </div>
-
-                <div class="relative w-full flex justify-center items-center flex-1 z-0 my-4">
-                    <!-- Tech Progress Bar -->
-                    <div class="w-full max-w-[180px]">
-                        <div class="w-full bg-black h-1 rounded-full overflow-hidden border border-white/10">
-                            <div class="bg-[#dc1e1e] h-full w-2/3 shadow-[0_0_10px_#E8272A]"></div>
-                        </div>
-                        <div class="flex justify-between mt-2">
-                             <span class="text-[8px] font-tech text-white/30 uppercase tracking-widest">Processing</span>
-                             <span class="text-[8px] font-tech text-[#dc1e1e] uppercase tracking-widest">Active</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-end pt-4 border-t border-white/10 relative z-10">
-                    <div class="">
-                        <p class="text-[9px] text-white/40 font-tech uppercase tracking-widest block mb-1">Status</p>
-                        <p class="text-[11px] font-bold tracking-tight mt-0.5 text-white uppercase">Operacional</p>
-                    </div>
-                </div>
+            <!-- Description & CTA -->
+            <div class="mt-12 max-w-xs text-center lg:text-left">
+                <p class="text-[13px] font-light opacity-90 leading-relaxed text-[#888888] mb-6">
+                    Fusão estratégica entre <span class="text-white font-medium">Neurociência</span>, <span class="text-white font-medium">IA Generativa</span> e <span class="text-white font-medium">Ciência da Criatividade</span>.
+                </p>
+                <a href="#problem" class="inline-flex items-center gap-4 text-[#dc1e1e] font-tech text-xs tracking-[0.3em] uppercase hover:text-white transition-colors group">
+                    Mapear Gargalos
+                    <iconify-icon icon="solar:round-arrow-down-linear" width="20" class="group-hover:translate-y-1 transition-transform"></iconify-icon>
+                </a>
             </div>
         </div>
     </div>
@@ -1098,7 +1021,7 @@
                 <!-- Brand -->
                 <div class="lg:col-span-1">
                     <a href="#" class="inline-block mb-6 group">
-                        <img src="./assets/Logo.png" alt="NA VEiA Logo" class="h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_15px_rgba(255,42,42,0.2)]">
+                        <img src="./assets/Logo.png" alt="NA VEiA Logo" class="h-16 md:h-20 w-auto object-contain group-hover:scale-110 transition-transform drop-shadow-[0_0_20px_rgba(255,42,42,0.3)]">
                     </a>
                     <p class="text-[#888888] font-light leading-relaxed mb-8 max-w-[280px]">
                         Engenharia de Conhecimento e Automação de Processos com IA Aplicada.
@@ -1342,8 +1265,14 @@
                 document.getElementById('feedback-area').scrollIntoView({ behavior: 'smooth', block: 'center' });
 
                 setTimeout(() => {
-                    document.getElementById('method').scrollIntoView({ behavior: 'smooth' });
+                    const methodSection = document.getElementById('method');
+                    if (methodSection) methodSection.scrollIntoView({ behavior: 'smooth' });
                 }, 4000);
+            }
+
+            // Injeção imediata para não começar vazio
+            if (stagesData.length > 0) {
+                // Opcional: pré-selecionar o primeiro ou apenas garantir que os cards apareçam (já feito pelo loop)
             }
 
             // --- AI Logic (Demo Mode) ---

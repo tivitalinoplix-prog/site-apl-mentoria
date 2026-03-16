@@ -7,17 +7,33 @@ import {
   Cpu, Lock, Star, Activity
 } from 'lucide-react';
 
+/* --- COMPONENTE LETRA 'i' COM QUADRADO (Sincronia Total) --- */
+function LetterI({ size = "text-2xl", color = "text-accent" }) {
+  return (
+    <span className={`relative inline-block leading-none ${color} ${size}`}>
+      i
+      <span 
+        className="absolute bg-current shadow-[0_0_15px_rgba(220,38,38,0.4)]"
+        style={{
+          width: '0.22em',
+          height: '0.22em',
+          top: '-0.15em',
+          left: '0.05em',
+          transform: 'rotate(10deg)',
+        }}
+      ></span>
+    </span>
+  );
+}
+
 /* --- LOGO ORIGINAL (INCLINADA + QUADRADO NO i) --- */
 function Logo({ className = "" }) {
   return (
     <div className={`font-display font-black text-2xl tracking-tighter italic flex items-center select-none ${className}`}>
       <span className="text-white">NA</span>
-      <span className="text-accent ml-1 flex items-baseline relative">
+      <span className="text-accent ml-1 flex items-baseline">
         VE
-        <span className="relative inline-block leading-none">
-          i
-          <span className="absolute top-[-3px] left-[-0.5px] w-[5px] h-[5px] bg-accent rotate-[10deg] shadow-[0_0_10px_rgba(220,38,38,0.6)]"></span>
-        </span>
+        <LetterI size="text-2xl" />
         A
       </span>
     </div>
@@ -147,12 +163,9 @@ function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 300]);
   const opacity = useTransform(scrollY, [0, 500], [0.6, 0]);
-  const xLeft = useTransform(scrollY, [0, 1000], [0, -300]);
-  const xRight = useTransform(scrollY, [0, 1000], [0, 300]);
-
+  
   return (
-    <div id="hero" className="relative h-screen w-full overflow-hidden flex items-center justify-center pt-20 bg-[#050505]">
-      {/* RESTORED HERO PHOTO BEHAVIOR */}
+    <div id="hero" className="relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-center bg-[#050505] pt-32 pb-20">
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
         <img 
           src="assets/hero.bg.jpg" 
@@ -165,26 +178,50 @@ function Hero() {
         />
       </motion.div>
 
-      <div className="relative z-10 flex flex-col lg:flex-row w-full max-w-7xl mx-auto px-6 items-center justify-center">
-        <motion.div style={{ x: xLeft }} className="flex-1 flex justify-center lg:justify-end lg:pr-8">
-          <span className="text-[clamp(100px,20vw,240px)] font-display font-black italic leading-none text-white tracking-tighter opacity-90">NA</span>
-        </motion.div>
-        <motion.div style={{ x: xRight }} className="flex-1 flex justify-center lg:justify-start lg:pl-8">
-          <div className="relative">
-            <span className="text-[clamp(100px,20vw,240px)] font-display font-black italic leading-none text-accent tracking-tighter opacity-90 drop-shadow-[0_0_40px_rgba(220,38,38,0.5)]">VEiA</span>
-            <div className="absolute top-[20%] left-[54%] w-[clamp(20px,4vw,50px)] h-[clamp(20px,4vw,50px)] bg-accent rotate-[12deg] shadow-[0_0_60px_rgba(220,38,38,0.6)]"></div>
-          </div>
-        </motion.div>
-      </div>
+      <div className="relative z-10 flex flex-col items-center w-full max-w-7xl mx-auto px-6 text-center">
+        {/* TITULO NA EM CIMA */}
+        <motion.span 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 0.9, y: 0 }}
+          className="text-[clamp(100px,25vw,280px)] font-display font-black italic leading-none text-white tracking-tighter select-none mb-4"
+        >
+          NA
+        </motion.span>
 
-      <div className="absolute bottom-12 left-0 right-0 flex flex-col items-center justify-center z-20">
-        <p className="text-base font-light text-neutral-400 mb-8 max-w-md text-center px-4">
-          Fusão estratégica entre <span className="text-white font-medium">Neurociência</span>, <span className="text-white font-medium">IA Generativa</span> e <span className="text-white font-medium">Ciência da Criatividade</span>.
-        </p>
-        <MagneticButton href="#problem" className="flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full font-semibold tracking-wide hover:bg-gray-200 uppercase text-sm group">
-          Mapear Gargalos
-          <ArrowDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
-        </MagneticButton>
+        {/* SUBTITULO IMPACTANTE NO MEIO */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+          className="max-w-2xl px-4 my-8 z-20"
+        >
+          <p className="text-xl md:text-2xl font-light leading-relaxed text-white/95 drop-shadow-lg">
+            Fusão estratégica entre <span className="text-white font-bold border-b-2 border-accent">Neurociência</span>, <span className="text-white font-bold border-b-2 border-accent">IA Generativa</span> e <span className="text-white font-bold border-b-2 border-accent">Ciência da Criatividade</span>.
+          </p>
+        </motion.div>
+
+        {/* TITULO VEIA EM BAIXO */}
+        <motion.div 
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 0.9, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="flex items-center text-[clamp(100px,25vw,280px)] font-display font-black italic leading-none text-accent tracking-tighter select-none drop-shadow-[0_0_50px_rgba(220,38,38,0.4)]"
+        >
+          VE<LetterI size="text-[clamp(100px,25vw,280px)]" />A
+        </motion.div>
+
+        {/* BOTÃO ABAIXO DE TUDO */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="mt-16"
+        >
+          <MagneticButton href="#problem" className="flex items-center gap-4 bg-white text-black px-10 py-5 rounded-full font-bold tracking-widest uppercase text-sm hover:scale-105 transition-all shadow-xl group">
+            Mapear Gargalos
+            <ArrowDown className="w-5 h-5 group-hover:translate-y-2 transition-transform" />
+          </MagneticButton>
+        </motion.div>
       </div>
     </div>
   );
